@@ -2,10 +2,6 @@ package name.heroin.community.model;
 
 import java.util.Date;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -19,6 +15,14 @@ class HibernateTest {
 		post.setTitle("Hi there!");
 		post.setBody("I love your site.");
 		post.setTimestamp(new Date());
+		
+		Comment comBur = new Comment();
+		comBur.setName("buran");
+		post.getComments().add(comBur);
+		
+		Tag tagBe = new Tag();
+		tagBe.setName("beeeeee");
+		post.getTags().add(tagBe);
 		
 		Configuration configuration = new Configuration();
 		configuration.configure();
