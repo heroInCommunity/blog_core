@@ -20,6 +20,14 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>AdminServlet</servlet-name>
 		<url-pattern>/admin</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>PermissionsServlet</servlet-name>
+		<servlet-class>name.heroin.community.PermissionsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PermissionsServlet</servlet-name>
+		<url-pattern>/admin/permissions</url-pattern>
+	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
