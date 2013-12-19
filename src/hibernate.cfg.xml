@@ -22,14 +22,14 @@
         </property>
         
         <property name="show_sql">true</property>
-        <property name="hbm2ddl.auto">create</property>
+        <property name="hbm2ddl.auto">update</property>
+        <mapping class="name.heroin.community.model.MenuItem" />
         <mapping class="name.heroin.community.model.Comment" />
         <mapping class="name.heroin.community.model.Post" />
         <mapping class="name.heroin.community.model.User" />
         <mapping class="name.heroin.community.model.Role" />
         <mapping class="name.heroin.community.model.Tag" />
         <mapping class="name.heroin.community.model.Permission" />
-        <mapping class="name.heroin.community.model.MenuItem" />
         
         
     </session-factory>

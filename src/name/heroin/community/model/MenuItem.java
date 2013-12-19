@@ -12,18 +12,32 @@ import org.hibernate.annotations.GenericGenerator;
 @Table (name = "menu_items")
 public class MenuItem {
 	
+	public MenuItem() {
+        // This is used by JPA
+    }
+	
 	@Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     private int id;
 	
-	private int order;
+	private int menuOrder;
 	private int depth;
 	
 	@Column (name = "parent_id")
 	private int parentId;
 	
 	private String url;
+	
+	private String name;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public int getId() {
 		return id;
@@ -33,12 +47,12 @@ public class MenuItem {
 		this.id = id;
 	}
 
-	public int getOrder() {
-		return order;
+	public int getMenuOrder() {
+		return menuOrder;
 	}
 
-	public void setOrder(int order) {
-		this.order = order;
+	public void setMenuOrder(int order) {
+		this.menuOrder = order;
 	}
 
 	public int getDepth() {
