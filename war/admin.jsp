@@ -55,73 +55,25 @@
 				<div class="col-md-3 well">
 					<div class="bs-sidebar hidden-print affix-top" role="complementary">
 						<ul class="nav bs-sidenav">
-							<li class="active">
+							<li class="">
 								<a href="#download">Download Bootstrap</a>
 								<ul class="nav">
 									<li class="">
 										<a href="#download-compiled">Compiled CSS, JS, and fonts</a>
 									</li>
-									<li class="">
-										<a href="#download-additional">Additional downloads</a>
-									</li>
-									<li class="">
-										<a href="#download-cdn">Bootstrap CDN</a>
-									</li>
 								</ul>
 							</li>
-							<li class="">
-								<a href="#whats-included">What's included</a>
+							<li class="active">
+								<a href="admin/permissions">Permissions</a>
 								<ul class="nav">
-									<li class="">
-										<a href="#whats-included-precompiled">Precompiled</a>
+									<li class="active">
+										<a href="admin/permissions">View permissions</a>
 									</li>
 									<li class="">
-										<a href="#whats-included-source">Source code</a>
+										<a href="admin/add_permission">Add permission</a>
 									</li>
 								</ul>
 							</li>
-							<li class="">
-								<a href="#template">Basic template</a>
-							</li>
-							<li class="">
-								<a href="#examples">Examples</a>
-							</li>
-							<li class="">
-								<a href="#disable-responsive">Disabling responsiveness</a>
-							</li>
-							<li class="">
-								<a href="#migration">Migrating from 2.x to 3.0</a>
-								<ul class="nav">
-									<li class="">
-										<a href="#migration-classes">Major class changes</a>
-									</li>
-									<li class="">
-										<a href="#migration-new">What's new</a>
-									</li>
-									<li>
-										<a href="#migration-dropped">What's removed</a>
-									</li>
-									<li>
-										<a href="#migration-notes">Additional notes</a>
-									</li>
-								</ul>
-							</li>
-							<li>
-								<a href="#browsers">Browser support</a>
-							</li>
-							<li>
-								<a href="#third-parties">Third party support</a>
-							</li>
-							<li>
-								<a href="#accessibility">Accessibility</a>
-							</li>
-							<li>
-								<a href="#license-faqs">License FAQs</a>
-							</li>
-							<li>
-								<a href="#customizing">Customizing Bootstrap</a>
-							</li>
-
 						</ul>
 					</div>
 				</div>

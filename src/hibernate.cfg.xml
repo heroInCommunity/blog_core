@@ -29,6 +29,7 @@
         <mapping class="name.heroin.community.model.Role" />
         <mapping class="name.heroin.community.model.Tag" />
         <mapping class="name.heroin.community.model.Permission" />
+        <mapping class="name.heroin.community.model.MenuItem" />
         
         
     </session-factory>
