@@ -2,6 +2,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="name.heroin.community.model.MenuItem" %>
+<%@ page import="name.heroin.community.constants.AttributeName" %>
 <html class="no-js">
 	<head>
 		<meta charset="utf-8">
@@ -58,17 +59,17 @@
 					<div class="bs-sidebar hidden-print affix-top" role="complementary">
 						<ul class="nav bs-sidenav">
 							<%
-							Map<MenuItem, List<MenuItem>> menus = (Map) request.getAttribute("menus");
+							Map<MenuItem, List<MenuItem>> menus = (Map) request.getAttribute(AttributeName.MENUS.value());
 							if (menus != null)
 							for (MenuItem topMenuItem : menus.keySet()) {							
 							%>						
-							<li class="<% if (((Integer) topMenuItem.getId()).equals(request.getAttribute("topLevelMenuId"))) out.print("active"); %>">
+							<li class="<% if (((Integer) topMenuItem.getId()).equals(request.getAttribute(AttributeName.TOP_LEVEL_MENU_ID.value()))) out.print("active"); %>">
 								<a href="<%=topMenuItem.getUrl()%>"><%=topMenuItem.getName() %></a>
 								<ul class="nav">
 									<%
 									for (MenuItem subMenuItem : menus.get(topMenuItem)) {
 									%>								
-									<li class="<% if (((Integer) subMenuItem.getId()).equals(request.getAttribute("subLevelMenuId"))) out.print("active"); %>">
+									<li class="<% if (((Integer) subMenuItem.getId()).equals(request.getAttribute(AttributeName.SUB_LEVEL_MENU_ID.value()))) out.print("active"); %>">
 										<a href="<%=subMenuItem.getUrl()%>"><%=subMenuItem.getName() %></a>
 									</li>								
 									<%
