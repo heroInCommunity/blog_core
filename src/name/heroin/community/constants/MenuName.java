@@ -39,4 +39,14 @@ public enum MenuName {
 	public String value() {
 		return value;
 	}
+	
+	public static boolean contains(String search) {
+		for (MenuName menuName : MenuName.values()) {
+			if (menuName.value.equals(search)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 }

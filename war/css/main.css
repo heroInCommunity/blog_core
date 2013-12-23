@@ -265,7 +265,11 @@ input.selectized {
 	font-size: 14px;
 	color: dimgrey;
 	cursor: pointer;
-}   
+}
+
+.admin-fields-area {
+	margin-left: 5px;
+}
 
 /* Bootstrap */
 

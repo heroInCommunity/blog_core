@@ -13,6 +13,7 @@ import name.heroin.community.constants.AttributeName;
 import name.heroin.community.constants.MenuName;
 import name.heroin.community.model.MenuItem;
 import name.heroin.community.module.MenuModule;
+import name.heroin.community.module.RoleModule;
 
 @SuppressWarnings("serial")
 public class PermissionsServlet extends HttpServlet {
@@ -20,7 +21,9 @@ public class PermissionsServlet extends HttpServlet {
 	private String allPermissionsName = MenuName.ADMIN_ALL_PERMISSIONS.value();
 	private String addPermissionName = MenuName.ADMIN_ADD_PERMISSION.value();
 	private String editPermissionName = MenuName.ADMIN_EDIT_PERMISSION.value();
+	
 	private MenuModule menuModule = new MenuModule();
+	private RoleModule roleModule = new RoleModule();
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String servletPath = request.getServletPath().substring(1);
@@ -58,6 +61,8 @@ public class PermissionsServlet extends HttpServlet {
 		
 		MenuItem subLevelMenu = menuModule.getMenuByUrl(addPermissionName);
 		request.setAttribute(AttributeName.SUB_LEVEL_MENU_ID.value(), subLevelMenu.getId());
+		request.setAttribute(AttributeName.LIST_OF_ROLES.value(), roleModule.getRoles());
+		request.setAttribute(AttributeName.BASE_URL.value(), Utils.getBaseUrl(request));
         
         dispatcher.forward(request, response);
 	}
