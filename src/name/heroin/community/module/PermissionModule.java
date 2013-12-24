@@ -6,8 +6,17 @@ import name.heroin.community.model.Permission;
 import name.heroin.community.utils.SessionProvider;
 import name.heroin.community.utils.std.SessionProviderHibernate;
 
+import javax.ws.rs.Path;
+import javax.ws.rs.POST;
+import javax.ws.rs.Produces;
+
+@Path("/permissions/")
 public class PermissionModule {
-	public void addPermission(Permission permission) {
+	
+	@POST
+	@Produces("application/json")
+	@Path("/add_permission")
+	public Boolean addPermission(Permission permission) {
 		SessionProvider sessionProvider = new SessionProviderHibernate();
 		
 		Session session = sessionProvider.getSession();
@@ -17,5 +26,7 @@ public class PermissionModule {
 		
 		session.getTransaction().commit();
 		session.close();
+		System.out.println("fewf");
+		return true;
 	}
 }
