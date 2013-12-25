@@ -24,15 +24,6 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>AjaxApiServlet</servlet-name>
-		<servlet-class>name.heroin.community.AjaxApiServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>AjaxApiServlet</servlet-name>
-		<url-pattern>/api/*</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
 		<servlet-name>PermissionsServlet</servlet-name>
 		<servlet-class>name.heroin.community.PermissionsServlet</servlet-class>
 	</servlet>
@@ -42,6 +33,18 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<url-pattern>/admin/all_permissions</url-pattern>
 		<url-pattern>/admin/add_permission</url-pattern>
 		<url-pattern>/admin/edit_permission</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>RolesServlet</servlet-name>
+		<servlet-class>name.heroin.community.RolesServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RolesServlet</servlet-name>
+		<url-pattern>/admin/roles</url-pattern>
+		<url-pattern>/admin/all_roles</url-pattern>
+		<url-pattern>/admin/add_role</url-pattern>
+		<url-pattern>/admin/edit_role</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>

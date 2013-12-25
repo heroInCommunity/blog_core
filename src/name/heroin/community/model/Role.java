@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
@@ -28,7 +29,7 @@ public class Role {
 	
 	private String name;
 	
-	@OneToMany (cascade = CascadeType.PERSIST)
+	@OneToMany (cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	@JoinTable (
 			name = "role_permissions",
 			joinColumns = @JoinColumn (name = "role_id"),

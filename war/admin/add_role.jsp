@@ -94,23 +94,11 @@
 					<div class="col-xs-12 col-sm-9 well admin-fields-area">
 						<div role="form">
 							<div class="form-group">
-								<label for="permissionName">Permission name</label> <input
-									class="form-control" id="permissionName"
-									placeholder="Enter permission name">
+								<label for="roleName">Role name</label> <input
+									class="form-control" id="roleName"
+									placeholder="Enter role name">
 							</div>
-							<div class="form-group">
-								<label for="userRole">User role</label> <select
-									class="form-control" id="userRole">
-									<%
-									for(Role role : (List<Role>) request.getAttribute(AttributeName.LIST_OF_ROLES.value()) ) {
-									%>
-									<option value="<%=role.getId()%>"><%=role.getName()%></option>
-									<%
-									}
-									%>
-								</select>
-							</div>
-							<button type="submit" id="add_permission" class="btn btn-default">Add</button>
+							<button type="submit" id="add_role" class="btn btn-default">Add</button>
 						</div>
 
 					</div>
@@ -143,10 +131,10 @@
 		});
 		
 		$( document ).ready(function() {
-			$("#add_permission").click(function() {
+			$("#add_role").click(function() {
 				$.ajax({
-					url: "<%=request.getAttribute(AttributeName.BASE_URL.value()) %>" + "api/permissions/add_permission",
-					data: {permissionName: $("#permissionName").val(), userRole: $("#userRole").val()}
+					url: "<%=request.getAttribute(AttributeName.BASE_URL.value()) %>" + "api/roles/add_role",
+					data: {roleName: $("#roleName").val()}
 				});
 			});
 		});
