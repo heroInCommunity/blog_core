@@ -9,6 +9,7 @@ import javax.ws.rs.Produces;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Restrictions;
 
 import name.heroin.community.model.Permission;
@@ -26,6 +27,7 @@ public class RoleModule {
 		session.beginTransaction();
 		
 		Criteria criteria = session.createCriteria(Role.class);
+		criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
 		List<Role> roles = criteria.list();
 		
 		session.getTransaction().commit();

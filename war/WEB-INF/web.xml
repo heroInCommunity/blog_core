@@ -60,6 +60,18 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>UsersServlet</servlet-name>
+		<servlet-class>name.heroin.community.UsersServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UsersServlet</servlet-name>
+		<url-pattern>/admin/users</url-pattern>
+		<url-pattern>/admin/all_users</url-pattern>
+		<url-pattern>/admin/add_user</url-pattern>
+		<url-pattern>/admin/edit_user</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>Api</servlet-name>
 		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
 		<init-param>
