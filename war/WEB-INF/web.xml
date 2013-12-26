@@ -48,6 +48,18 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>TagsServlet</servlet-name>
+		<servlet-class>name.heroin.community.TagsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TagsServlet</servlet-name>
+		<url-pattern>/admin/tags</url-pattern>
+		<url-pattern>/admin/all_tags</url-pattern>
+		<url-pattern>/admin/add_tag</url-pattern>
+		<url-pattern>/admin/edit_tag</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>Api</servlet-name>
 		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
 		<init-param>
