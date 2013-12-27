@@ -10,7 +10,6 @@
 		<!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
 
 		<link rel="stylesheet" href="../css/bootstrap.css">
-		<link rel="stylesheet" href="../css/jquery-ui-1.8.13.custom.css">
 		<link rel="stylesheet" href="../css/main.css">
 		<script src="../js/vendor/modernizr-2.7.0.min.js"></script>
 	</head>

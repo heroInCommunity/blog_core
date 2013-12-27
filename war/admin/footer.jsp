@@ -12,7 +12,6 @@
 		</script>
 		<script src="../js/plugins.js"></script>
 		<script src="../js/bootstrap.min.js"></script>
-		<script src="../js/jquery-ui-1.8.13.custom.min.js"></script>
 		<script src="../js/main.js"></script>
 	</body>
 </html>

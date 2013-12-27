@@ -16,15 +16,27 @@ class HibernateTest {
 		Post post = new Post();
 		post.setTitle("Hi there!");
 		post.setBody("I love your site.");
-		post.setTimestamp(new Date());
-		
-		Comment comBur = new Comment();
-		comBur.setName("buran");
-		post.getComments().add(comBur);
+		post.setTimestamp(new Date());		
 		
 		Tag tagBe = new Tag();
 		tagBe.setName("beeeeee");
 		post.getTags().add(tagBe);
+		
+		Permission permission = new Permission();
+		permission.setName("buranPermission");
+		
+		Role role = new Role();
+		role.setName("buranRole");
+		role.getPermissions().add(permission);
+		
+		User user = new User();
+		user.setName("buran");
+		user.setEmail("buranEmail");
+		user.setRole(role);
+		
+		Comment comBur = new Comment();
+		comBur.setUser(user);
+		post.getComments().add(comBur);
 		
 		MenuItem topLevelMenu = new MenuItem();
 		topLevelMenu.setName("Permissions");

@@ -1,8 +1,14 @@
 package name.heroin.community.model;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -19,7 +25,35 @@ public class Comment {
     @GenericGenerator(name = "increment", strategy = "increment")
 	private int id;
 	
-	private String name;
+	@ManyToOne (cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinTable (
+			name = "user_comments",
+			joinColumns = @JoinColumn (name = "comment_id"),
+			inverseJoinColumns = @JoinColumn (name = "user_id")
+	)
+	private User user;
+	
+	@Column (name = "comment_text")
+	private String commentText;
+	
+	@Column (name = "is_visible")
+	private Boolean isVisible;
+
+	public Boolean getIsVisible() {
+		return isVisible;
+	}
+
+	public void setIsVisible(Boolean isVisible) {
+		this.isVisible = isVisible;
+	}
+
+	public String getCommentText() {
+		return commentText;
+	}
+
+	public void setCommentText(String commentText) {
+		this.commentText = commentText;
+	}
 
 	public int getId() {
 		return id;
@@ -29,11 +63,11 @@ public class Comment {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public User getUser() {
+		return user;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setUser(User user) {
+		this.user = user;
 	}
 }

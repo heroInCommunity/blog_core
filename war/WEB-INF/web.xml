@@ -72,6 +72,18 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>CommentsServlet</servlet-name>
+		<servlet-class>name.heroin.community.CommentsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CommentsServlet</servlet-name>
+		<url-pattern>/admin/comments</url-pattern>
+		<url-pattern>/admin/all_comments</url-pattern>
+		<url-pattern>/admin/add_comment</url-pattern>
+		<url-pattern>/admin/edit_comment</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>Api</servlet-name>
 		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
 		<init-param>
