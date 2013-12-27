@@ -85,6 +85,10 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<url-pattern>/api/*</url-pattern>
 	</servlet-mapping>
 	
+	<listener>
+		<listener-class>name.heroin.community.listeners.MainControllerRequestListener</listener-class>
+	</listener>
+	
 	
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>

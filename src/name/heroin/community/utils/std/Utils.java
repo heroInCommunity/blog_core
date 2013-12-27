@@ -1,10 +1,10 @@
-package name.heroin.community;
+package name.heroin.community.utils.std;
 
 import javax.servlet.http.HttpServletRequest;
 
 import name.heroin.community.constants.MenuName;
 
-class Utils {	
+public class Utils {	
 	public static String permissionToUri(String permission) {
 		return "/" + permission + ".jsp";
 	}
