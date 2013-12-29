@@ -18,9 +18,9 @@ public class CommentModule {
 	@POST
 	@Produces("application/json")
 	@Path("/add_comment")
-	public Status addComment(@FormParam("userEmail") String userEmail, @FormParam("commentText") String commentText) {
+	public Status addComment(@FormParam("userId") Integer userId, @FormParam("commentText") String commentText) {
 		UserModule userModule = new UserModule();		
-		User user = userModule.getByEmail(userEmail);
+		User user = userModule.getById(userId);
 		
 		Comment comment = new Comment();
 		comment.setCommentText(commentText);

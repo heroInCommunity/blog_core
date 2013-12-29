@@ -4,7 +4,7 @@
 <%@ page import="name.heroin.community.model.User" %>
 <%@ page import="name.heroin.community.constants.AttributeName" %>
 <jsp:include page="header.jsp" />
-<link rel="stylesheet" href="../css/jquery-ui-1.10.3.custom.min.css">
+<link rel="stylesheet" href="<%=request.getAttribute(AttributeName.BASE_URL.value()) %>css/jquery-ui-1.10.3.custom.min.css">
 		<div class="container">
 		<div class="row">
 			<div class="col-md-3 well">
@@ -62,23 +62,33 @@
 			</div>
 		</div>
 		<jsp:include page="footer.jsp" />		
-		<script type="text/javascript" src="../js/jquery-ui-1.10.3.custom.min.js"></script>		
-		<script type="text/javascript">
-		$("#userEmail").autocomplete({
-			source: "<%=request.getAttribute(AttributeName.BASE_URL.value()) %>" + "api/users/search",
-			minLength: 2
-		});
-		$.ajaxSetup({
-			type: "POST",
-			dataType: "json",
-			mimeType: "application/json"
-		});
-		
+		<script type="text/javascript" src="<%=request.getAttribute(AttributeName.BASE_URL.value()) %>js/jquery-ui-1.10.3.custom.min.js"></script>		
+		<script type="text/javascript">		
 		$( document ).ready(function() {
+			var selectedUserId;
+			$("#userEmail").autocomplete({
+				source: "<%=request.getAttribute(AttributeName.BASE_URL.value()) %>" + "api/users/search",
+				minLength: 2,
+				select: function( event, ui ) {
+					$("#userEmail").val(ui.item.name);
+					selectedUserId = ui.item.id;
+				}
+			}).data( "ui-autocomplete" ).
+			_renderItem = function( ul, item ) {
+				return $( "<li>" )
+				.attr( "data-value", item.id )
+				.append( $( "<a>" ).text( item.name ) )
+				.appendTo( ul );
+			};
+			$.ajaxSetup({
+				type: "POST",
+				dataType: "json",
+				mimeType: "application/json"
+			});
 			$("#add_comment").click(function() {
 				$.ajax({
 					url: "<%=request.getAttribute(AttributeName.BASE_URL.value()) %>" + "api/comments/add_comment",
-					data: {userEmail: $("#userEmail").val(), commentText: $("#commentText").val()}
+					data: {userId: selectedUserId, commentText: $("#commentText").val()}
 				});
 			});
 		});

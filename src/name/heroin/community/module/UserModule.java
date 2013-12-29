@@ -96,4 +96,23 @@ public class UserModule {
 		}
 		return users.get(0);
 	}
+	
+	public User getById(Integer id) {
+		SessionProvider sessionProvider = new SessionProviderHibernate();
+		
+		Session session = sessionProvider.getSession();
+		session.beginTransaction();
+		
+		Criteria criteria = session.createCriteria(User.class);
+		criteria.add(Restrictions.like("id", id));
+		List<User> users = criteria.list();		
+		
+		session.getTransaction().commit();
+		session.close();
+		
+		if (users.isEmpty()) {
+			return null;
+		}
+		return users.get(0);
+	}
 }

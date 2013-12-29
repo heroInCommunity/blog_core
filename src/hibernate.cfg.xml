@@ -9,7 +9,7 @@
 
         <!-- Database connection settings -->
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://192.168.204.115:3306/blog</property>
+        <property name="connection.url">jdbc:mysql://127.0.0.1:3306/blog</property>
         <property name="connection.username">chg</property>
         <property name="connection.password">parol-mech</property>
 
