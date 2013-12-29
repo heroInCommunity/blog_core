@@ -49,7 +49,7 @@
 						<div role="form">
 							<div class="form-group">
 								<label for="postTitle">Title</label> <input
-									class="form-control" id=""postTitle""
+									class="form-control" id="postTitle"
 									placeholder="Enter post title">
 							</div>
 							<div class="form-group">
@@ -73,6 +73,11 @@
 		<script src="<%=request.getAttribute(AttributeName.BASE_URL.value()) %>js/vendor/selectize.js"></script>
 		<script type="text/javascript">		
 		$( document ).ready(function() {
+			$.ajaxSetup({
+				type: "POST",
+				dataType: "json",
+				mimeType: "application/json"
+			});
 	        var opts = {
 	            lang         : 'en',   // set your language
 	            styleWithCSS : false,
@@ -80,7 +85,7 @@
 	            toolbar      : 'maxi'
 	        };
 	        $('#tag_word').selectize({
-	        	valueField: 'name',
+	        	valueField: 'id',
 	            labelField: 'name',
 	            searchField: 'name',
 	            options: [],
@@ -89,7 +94,7 @@
 			 	plugins: ['restore_on_backspace', 'remove_button'],
 			    create: false,
 			    render: {
-			        option: function(item, escape) {
+			        option: function(item, escape) {console.log(item);
 			            return '<div>' +
 			                '<span class="title">' +
 			                    '<span class="by">' + escape(item.name) + '</span>' +
@@ -102,7 +107,6 @@
 		         	if (!query.length) return callback();
 		         	$.ajax({
 	             		url: "<%=request.getAttribute(AttributeName.BASE_URL.value()) %>" + "api/tags/search",
-			            type: 'POST',
 			            data: {tagName: query},
 			            error: function() {
 			                callback();
@@ -116,9 +120,17 @@
 	        // create editor
 	        $('#postBody').elrte(opts);
 	        $("#add_post").click(function() {
+	        	var tagIds = [];
+	        	$('div.selectize-input > div.item').each(function() {
+	        		tagIds.push($(this).attr('data-value'));
+	        	});
 				$.ajax({
 					url: "<%=request.getAttribute(AttributeName.BASE_URL.value()) %>" + "api/posts/add_post",
-					data: {userId: selectedUserId, commentText: $("#commentText").val()}
+					data: {title: $('#postTitle').val(), body: $('#postBody').elrte('val'), tags: tagIds},
+		            error: function() {
+		            },
+		            success: function() {
+		            }
 				});
 			});
 	    });

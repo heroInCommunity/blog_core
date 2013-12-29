@@ -85,7 +85,7 @@ public class UserModule {
 		session.beginTransaction();
 		
 		Criteria criteria = session.createCriteria(User.class);
-		criteria.add(Restrictions.like("email", email));
+		criteria.add(Restrictions.eq("email", email));
 		List<User> users = criteria.list();		
 		
 		session.getTransaction().commit();
@@ -104,7 +104,7 @@ public class UserModule {
 		session.beginTransaction();
 		
 		Criteria criteria = session.createCriteria(User.class);
-		criteria.add(Restrictions.like("id", id));
+		criteria.add(Restrictions.eq("id", id));
 		List<User> users = criteria.list();		
 		
 		session.getTransaction().commit();
