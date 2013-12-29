@@ -3,12 +3,12 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Hibernate"/>
-	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
-	<classpathentry kind="lib" path="D:/gmm/mysql-connector-java-5.1.26/mysql-connector-java-5.1.26-bin.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/jersey-client-1.17.1.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/jersey-core-1.17.1.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/jersey-json-1.17.1.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/jersey-server-1.17.1.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/jersey-servlet-1.17.1.jar"/>
+	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/mysql-connector-java-5.1.27-bin.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
