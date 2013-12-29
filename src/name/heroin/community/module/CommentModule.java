@@ -6,6 +6,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 import name.heroin.community.model.Comment;
+import name.heroin.community.model.Post;
 import name.heroin.community.model.User;
 import name.heroin.community.utils.SessionProvider;
 import name.heroin.community.utils.std.SessionProviderHibernate;
@@ -18,13 +19,17 @@ public class CommentModule {
 	@POST
 	@Produces("application/json")
 	@Path("/add_comment")
-	public Status addComment(@FormParam("userId") Integer userId, @FormParam("commentText") String commentText) {
+	public Status addComment(@FormParam("userId") Integer userId, @FormParam("postId") Integer postId, @FormParam("commentText") String commentText) {
 		UserModule userModule = new UserModule();		
 		User user = userModule.getById(userId);
+		
+		PostModule postModule = new PostModule();
+		Post post = postModule.getById(postId);
 		
 		Comment comment = new Comment();
 		comment.setCommentText(commentText);
 		comment.setUser(user);
+		post.getComments().add(comment);
 		comment.setIsVisible(true);
 
 		SessionProvider sessionProvider = new SessionProviderHibernate();
@@ -32,6 +37,7 @@ public class CommentModule {
 		Session session = sessionProvider.getSession();
 		session.beginTransaction();
 
+		session.update(post);
 		session.save(comment);
 
 		session.getTransaction().commit();

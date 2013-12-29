@@ -84,11 +84,27 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>PostsServlet</servlet-name>
+		<servlet-class>name.heroin.community.PostsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PostsServlet</servlet-name>
+		<url-pattern>/admin/posts</url-pattern>
+		<url-pattern>/admin/all_posts</url-pattern>
+		<url-pattern>/admin/add_post</url-pattern>
+		<url-pattern>/admin/edit_post</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>Api</servlet-name>
 		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
 		<init-param>
 			<param-name>com.sun.jersey.config.property.packages</param-name>
 			<param-value>name.heroin.community.module</param-value>
+		</init-param>
+		 <init-param>
+			<param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
+			<param-value>true</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>

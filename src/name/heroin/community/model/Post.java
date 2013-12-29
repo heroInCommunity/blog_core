@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -43,7 +44,7 @@ public class Post {
 	)
     private Collection<Tag> tags = new ArrayList<Tag>();
     
-    @OneToMany (cascade = CascadeType.PERSIST)
+    @OneToMany (cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	@JoinTable (
 			name = "post_comments",
 			joinColumns = @JoinColumn (name = "post_id"),

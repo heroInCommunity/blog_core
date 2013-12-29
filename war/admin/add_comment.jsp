@@ -50,6 +50,11 @@
 									placeholder="Enter user email">
 							</div>
 							<div class="form-group">
+								<label for="postTitle">Post title</label> <input
+									class="form-control" id="postTitle"
+									placeholder="Enter post title">
+							</div>
+							<div class="form-group">
 								<label for="commentText">Comment text</label> <input
 									class="form-control" id="commentText"
 									placeholder="Enter comment text">
@@ -65,13 +70,20 @@
 		<script type="text/javascript" src="<%=request.getAttribute(AttributeName.BASE_URL.value()) %>js/jquery-ui-1.10.3.custom.min.js"></script>		
 		<script type="text/javascript">		
 		$( document ).ready(function() {
+			$.ajaxSetup({
+				type: "POST",
+				dataType: "json",
+				mimeType: "application/json"
+			});
 			var selectedUserId;
+			var selectedPostId;
 			$("#userEmail").autocomplete({
 				source: "<%=request.getAttribute(AttributeName.BASE_URL.value()) %>" + "api/users/search",
 				minLength: 2,
 				select: function( event, ui ) {
 					$("#userEmail").val(ui.item.name);
 					selectedUserId = ui.item.id;
+					return false;
 				}
 			}).data( "ui-autocomplete" ).
 			_renderItem = function( ul, item ) {
@@ -80,15 +92,25 @@
 				.append( $( "<a>" ).text( item.name ) )
 				.appendTo( ul );
 			};
-			$.ajaxSetup({
-				type: "POST",
-				dataType: "json",
-				mimeType: "application/json"
-			});
+			$("#postTitle").autocomplete({
+				source: "<%=request.getAttribute(AttributeName.BASE_URL.value()) %>" + "api/posts/search",
+				minLength: 2,
+				select: function( event, ui ) {
+					$("#postTitle").val(ui.item.title);
+					selectedPostId = ui.item.id;
+					return false;
+				}
+			}).data( "ui-autocomplete" ).
+			_renderItem = function( ul, item ) {
+				return $( "<li>" )
+				.attr( "data-value", item.id )
+				.append( $( "<a>" ).text( item.title ) )
+				.appendTo( ul );
+			};
 			$("#add_comment").click(function() {
 				$.ajax({
 					url: "<%=request.getAttribute(AttributeName.BASE_URL.value()) %>" + "api/comments/add_comment",
-					data: {userId: selectedUserId, commentText: $("#commentText").val()}
+					data: {userId: selectedUserId, postId: selectedPostId, commentText: $("#commentText").val()}
 				});
 			});
 		});
