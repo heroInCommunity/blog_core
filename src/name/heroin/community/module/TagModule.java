@@ -1,8 +1,12 @@
 package name.heroin.community.module;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -40,6 +44,38 @@ public class TagModule {
 		status.setText("success");
 		
 		return status;
+	}
+	
+	@GET
+	@Produces("application/json")
+	@Path("/get_tags")
+	public Map<String, Object> getTags() {
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("sEcho", 1);
+		result.put("iTotalRecords", 3);
+		result.put("iTotalDisplayRecords", 3);
+		
+		List<ArrayList<String>> data = new ArrayList<ArrayList<String>>();
+		
+		ArrayList<String> first = new ArrayList<String>();
+		first.add("<input type='checkbox' class='ids' value='1' />");
+		first.add("First");
+		
+		ArrayList<String> second = new ArrayList<String>();
+		second.add("<input type='checkbox' class='ids' value='1' />");
+		second.add("Second");
+		
+		ArrayList<String> third = new ArrayList<String>();
+		third.add("<input type='checkbox' class='ids' value='1' />");
+		third.add("First");
+		
+		data.add(first);
+		data.add(second);
+		data.add(third);		
+		
+		result.put("aaData", data);
+		
+		return result;
 	}
 	
 	@POST

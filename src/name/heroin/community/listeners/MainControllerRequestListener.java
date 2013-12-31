@@ -47,7 +47,7 @@ public class MainControllerRequestListener implements ServletRequestListener {
     	String result;
     	
     	if (methodName.contains("all_")) {
-    		result = methodName.replaceAll("all_", "") + "s";
+    		result = methodName.replaceAll("all_", "");
     	}
     	else if (methodName.contains("add_")) {
     		result = methodName.replaceAll("add_", "") + "s";

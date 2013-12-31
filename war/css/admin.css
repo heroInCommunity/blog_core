@@ -1,0 +1,29 @@
+.wide {
+	width: 100%;
+	border: 1px solid #DFDFDF;
+	background-color: F9F9F9;
+	border-top: none;
+}
+.wide td {
+	border-top: 1px solid white;
+	border: 1px solid #DFDFDF;
+}
+.wide tr th {
+	border-top: none;
+}
+.ids_all {
+	cursor: pointer;
+}
+.table.dataTable td.left {
+	text-align: left !important;
+	max-width: 350px !important;
+}
+.table.dataTable td.center {
+	text-align: center;
+}
+.width_percent_10 {
+	width: 10%;
+}
+.width_percent_90 {
+	width: 90%;
+}
