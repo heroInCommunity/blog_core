@@ -19,6 +19,7 @@ import name.heroin.community.utils.std.Status;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 @Path("/tags/")
@@ -51,27 +52,32 @@ public class TagModule {
 	@Path("/get_tags")
 	public Map<String, Object> getTags() {
 		Map<String, Object> result = new HashMap<String, Object>();
+		SessionProvider sessionProvider = new SessionProviderHibernate();
+		
+		Session session = sessionProvider.getSession();
+		session.beginTransaction();
+		
+		Criteria criteria = session.createCriteria(Tag.class);
+		
+		criteria.setMaxResults(10);
+		List<Tag> tags = criteria.list();
+		
+		Number tagsCount = (Number) session.createCriteria(Tag.class).setProjection(Projections.rowCount()).uniqueResult();
+		
+		session.getTransaction().commit();
+		session.close();
+		
 		result.put("sEcho", 1);
-		result.put("iTotalRecords", 3);
-		result.put("iTotalDisplayRecords", 3);
+		result.put("iTotalRecords", tagsCount);
+		result.put("iTotalDisplayRecords", tagsCount);
 		
 		List<ArrayList<String>> data = new ArrayList<ArrayList<String>>();
-		
-		ArrayList<String> first = new ArrayList<String>();
-		first.add("<input type='checkbox' class='ids' value='1' />");
-		first.add("First");
-		
-		ArrayList<String> second = new ArrayList<String>();
-		second.add("<input type='checkbox' class='ids' value='1' />");
-		second.add("Second");
-		
-		ArrayList<String> third = new ArrayList<String>();
-		third.add("<input type='checkbox' class='ids' value='1' />");
-		third.add("First");
-		
-		data.add(first);
-		data.add(second);
-		data.add(third);		
+		for (Tag tag : tags) {
+			ArrayList<String> row = new ArrayList<String>();
+			row.add("<input type='checkbox' class='ids' value='" + tag.getId() + "' />");
+			row.add(tag.getName());
+			data.add(row);
+		}		
 		
 		result.put("aaData", data);
 		

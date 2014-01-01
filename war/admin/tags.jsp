@@ -76,6 +76,8 @@ function tableDraw(oSettings) {
 		$('#data_table_paginate').hide();
 		dataTable.find('thead').hide();
 	} else {
+		console.log(oSettings.fnRecordsDisplay())
+		console.log(oSettings)
 		if (oSettings.fnRecordsDisplay() <= oSettings._iDisplayLength) {
 			$('#data_table_paginate').hide();
 		} else {
