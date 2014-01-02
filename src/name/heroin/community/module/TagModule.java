@@ -53,6 +53,8 @@ public class TagModule {
 	@Produces("application/json")
 	@Path("/get_tags")
 	public Map<String, Object> getTagsTableData(
+			@DefaultValue(Parameters.Constants.S_SEARCH) @QueryParam("sSearch") String search,
+			@DefaultValue(Parameters.Constants.S_ECHO) @QueryParam("sEcho") Integer echo,
 			@DefaultValue(Parameters.Constants.I_DISPLAY_START) @QueryParam("iDisplayStart") Integer start,
 			@DefaultValue(Parameters.Constants.I_DISPLAY_LENGTH) @QueryParam("iDisplayLength") Integer length) {
 		Map<String, Object> result = new HashMap<String, Object>();
@@ -63,6 +65,10 @@ public class TagModule {
 
 		Criteria criteria = session.createCriteria(Tag.class);
 
+		if (search.length() >= Integer.parseInt(Parameters.Constants.MIN_LENGTH_TO_SEARCH)) {
+			criteria.add(Restrictions.like("name", search + "%"));
+		}
+		
 		criteria.setFirstResult(start);
 		criteria.setMaxResults(length);
 		List<Tag> tags = criteria.list();
@@ -73,7 +79,7 @@ public class TagModule {
 		session.getTransaction().commit();
 		session.close();
 
-		result.put("sEcho", 1);
+		result.put("sEcho", echo);
 		result.put("iTotalRecords", tagsCount);
 		result.put("iTotalDisplayRecords", tagsCount);
 

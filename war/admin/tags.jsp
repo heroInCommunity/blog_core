@@ -3,6 +3,7 @@
 <%@ page import="name.heroin.community.model.MenuItem" %>
 <%@ page import="name.heroin.community.constants.AttributeName" %>
 <jsp:include page="header.jsp" />
+<link rel="stylesheet" href="<%=request.getAttribute(AttributeName.BASE_URL.value()) %>css/start/jquery-ui-1.10.3.custom.min.css">
 <link rel="stylesheet" href="<%=request.getAttribute(AttributeName.BASE_URL.value()) %>css/jquery.dataTables.css" />
 <link rel="stylesheet" href="<%=request.getAttribute(AttributeName.BASE_URL.value()) %>css/admin.css" />
 		<div class="container">
@@ -51,7 +52,8 @@
 					</div>
 				</div>
 			</div>
-<jsp:include page="footer.jsp" />
+<jsp:include page="footer.jsp" />		
+<script type="text/javascript" src="<%=request.getAttribute(AttributeName.BASE_URL.value()) %>js/jquery-ui-1.10.3.custom.min.js"></script>
 <script type="text/javascript" src="<%=request.getAttribute(AttributeName.BASE_URL.value()) %>js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
 var idsAll = $('.ids_all');
@@ -96,6 +98,7 @@ $(document).ready(function() {
 		'bJQueryUI': true,
 		'sPaginationType': 'full_numbers',
 		'aaSorting': [ [ 1, 'asc' ] ],
+		'sDom': '<"H"flpr>t<"F"i>',
 		'aoColumnDefs': [
          	{ 'sClass': 'center width_percent_10', 'aTargets': [ 0 ] },
          	{ 'sClass': 'left width_percent_90', 'aTargets': [ 1 ] },
@@ -106,6 +109,10 @@ $(document).ready(function() {
          'sAjaxSource': "<%=request.getAttribute(AttributeName.BASE_URL.value()) %>" + "api/tags/get_tags",
          'fnInitComplete': initComplete,
          'fnDrawCallback': tableDraw
+	});
+	$('.dataTables_filter input').unbind('keypress keyup').bind('keypress keyup', function(event) {
+		if ($(this).val().length < 3 && event.keyCode != 13) return;
+		tableObj.fnFilter($(this).val());
 	});
 	idsAll.click(function() {
 		var value = idsAll.is(':checked');
