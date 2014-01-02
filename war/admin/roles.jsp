@@ -44,6 +44,7 @@
 									<tr>
 										<th align="center" valign="middle"><input type="checkbox" class="ids_all" /></th>
 										<th align="left">Name</th>
+										<th align="left">Permissions</th>
 									</tr>
 								</thead>
 								<tbody></tbody>
@@ -101,8 +102,9 @@ $(document).ready(function() {
 		'sDom': '<"H"flpr>t<"F"i>',
 		'aoColumnDefs': [
          	{ 'sClass': 'center width_percent_10', 'aTargets': [ 0 ] },
-         	{ 'sClass': 'left width_percent_90', 'aTargets': [ 1 ] },
-         	{ 'bSortable': false, 'aTargets': [ 0, 1 ] }
+         	{ 'sClass': 'left width_percent_45', 'aTargets': [ 1 ] },
+         	{ 'sClass': 'left width_percent_45', 'aTargets': [ 2 ] },
+         	{ 'bSortable': false, 'aTargets': [ 0, 1, 2 ] }
          ],
          'bServerSide': true,
          'bProcessing': true,

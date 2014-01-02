@@ -46,8 +46,6 @@ public class RolesServlet extends HttpServlet {
 	private void addRole(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		ServletContext context = getServletContext();
         RequestDispatcher dispatcher = context.getRequestDispatcher(Utils.permissionToUri(addRoleName));
-		
-		request.setAttribute(AttributeName.LIST_OF_ROLES.value(), roleModule.getRoles());
         
         dispatcher.forward(request, response);
 	}

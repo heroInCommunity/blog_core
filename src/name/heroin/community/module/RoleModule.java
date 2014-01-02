@@ -66,6 +66,7 @@ public class RoleModule {
 		
 		criteria.setFirstResult(start);
 		criteria.setMaxResults(length);
+		criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
 		List<Role> roles = criteria.list();
 
 		Number rolesCount = (Number) session.createCriteria(Role.class)
@@ -84,12 +85,29 @@ public class RoleModule {
 			row.add("<input type='checkbox' class='ids' value='" + role.getId()
 					+ "' />");
 			row.add(role.getName());
+			row.add(getStringPermissions(role));
 			data.add(row);
 		}
 
 		result.put("aaData", data);
 
 		return result;
+	}
+	
+	private String getStringPermissions(Role role) {
+		StringBuffer stringBuffer = new StringBuffer();
+		
+		int iter = 0;
+		for(Permission permissioon : role.getPermissions()) {
+			if (iter != 0) {
+				stringBuffer.append(", ");
+			}
+			
+			stringBuffer.append(permissioon.getName());
+			iter++;
+		}
+		
+		return stringBuffer.toString();
 	}
 	
 	public Role getRoleById(Integer id) {
