@@ -76,8 +76,6 @@ function tableDraw(oSettings) {
 		$('#data_table_paginate').hide();
 		dataTable.find('thead').hide();
 	} else {
-		console.log(oSettings.fnRecordsDisplay())
-		console.log(oSettings)
 		if (oSettings.fnRecordsDisplay() <= oSettings._iDisplayLength) {
 			$('#data_table_paginate').hide();
 		} else {
@@ -112,7 +110,6 @@ $(document).ready(function() {
 	idsAll.click(function() {
 		var value = idsAll.is(':checked');
 		$('.ids').each(function() {
-			console.log(value)
 			this.checked = value;
 		});
 	});
