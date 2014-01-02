@@ -4,6 +4,8 @@
 <%@ page import="name.heroin.community.model.Role" %>
 <%@ page import="name.heroin.community.constants.AttributeName" %>
 <jsp:include page="header.jsp" />
+<link rel="stylesheet" href="<%=request.getAttribute(AttributeName.BASE_URL.value()) %>css/selectize.css">
+<link rel="stylesheet" href="<%=request.getAttribute(AttributeName.BASE_URL.value()) %>css/selectize.bootstrap3.css">
 		<div class="container">
 		<div class="row">
 			<div class="col-md-3 well">
@@ -48,6 +50,9 @@
 									class="form-control" id="roleName"
 									placeholder="Enter role name">
 							</div>
+							<div class="list-group search-words-group well">
+								<input type="text" id="permission_word" placeholder="Input permission name here" class="form-control selectized">
+							</div>
 							<button type="submit" id="add_role" class="btn btn-default">Add</button>
 						</div>
 
@@ -56,6 +61,7 @@
 			</div>
 		</div>
 		<jsp:include page="footer.jsp" />
+		<script src="<%=request.getAttribute(AttributeName.BASE_URL.value()) %>js/vendor/selectize.js"></script>
 		<script type="text/javascript">
 		$.ajaxSetup({
 			type: "POST",
@@ -64,10 +70,47 @@
 		});
 		
 		$( document ).ready(function() {
+	        $('#permission_word').selectize({
+	        	valueField: 'id',
+	            labelField: 'name',
+	            searchField: 'name',
+	            options: [],
+	            delimiter: ',',
+			    persist: false,
+			 	plugins: ['restore_on_backspace', 'remove_button'],
+			    create: false,
+			    render: {
+			        option: function(item, escape) {
+			            return '<div>' +
+			                '<span class="title">' +
+			                    '<span class="by">' + escape(item.name) + '</span>' +
+			                '</span>' +
+			            '</div>';
+			        }
+			    },
+		     	maxItems: 12,
+		     	load: function(query, callback) {
+		         	if (!query.length) return callback();
+		         	$.ajax({
+	             		url: "<%=request.getAttribute(AttributeName.BASE_URL.value()) %>" + "api/permissions/search",
+			            data: {permissionName: query},
+			            error: function() {
+			                callback();
+			            },
+			            success: function(res) {
+			                callback(res);
+			            }
+			         });
+			     }
+			});
 			$("#add_role").click(function() {
+				var permissionIds = [];
+	        	$('div.selectize-input > div.item').each(function() {
+	        		permissionIds.push($(this).attr('data-value'));
+	        	});
 				$.ajax({
 					url: "<%=request.getAttribute(AttributeName.BASE_URL.value()) %>" + "api/roles/add_role",
-					data: {roleName: $("#roleName").val()}
+					data: {roleName: $("#roleName").val(), permissions: permissionIds}
 				});
 			});
 		});

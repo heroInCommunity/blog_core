@@ -48,18 +48,6 @@
 									class="form-control" id="permissionName"
 									placeholder="Enter permission name">
 							</div>
-							<div class="form-group">
-								<label for="userRole">User role</label> <select
-									class="form-control" id="userRole">
-									<%
-									for(Role role : (List<Role>) request.getAttribute(AttributeName.LIST_OF_ROLES.value()) ) {
-									%>
-									<option value="<%=role.getId()%>"><%=role.getName()%></option>
-									<%
-									}
-									%>
-								</select>
-							</div>
 							<button type="submit" id="add_permission" class="btn btn-default">Add</button>
 						</div>
 
@@ -79,7 +67,7 @@
 			$("#add_permission").click(function() {
 				$.ajax({
 					url: "<%=request.getAttribute(AttributeName.BASE_URL.value()) %>" + "api/permissions/add_permission",
-					data: {permissionName: $("#permissionName").val(), userRole: $("#userRole").val()}
+					data: {permissionName: $("#permissionName").val()}
 				});
 			});
 		});

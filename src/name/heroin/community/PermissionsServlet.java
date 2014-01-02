@@ -20,8 +20,6 @@ public class PermissionsServlet extends HttpServlet {
 	private String addPermissionName = MenuName.ADMIN_ADD_PERMISSION.value();
 	private String editPermissionName = MenuName.ADMIN_EDIT_PERMISSION.value();
 	
-	private RoleModule roleModule = new RoleModule();
-	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String servletPath = request.getServletPath().substring(1);
 		
@@ -46,8 +44,6 @@ public class PermissionsServlet extends HttpServlet {
 	private void addPermission(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		ServletContext context = getServletContext();
         RequestDispatcher dispatcher = context.getRequestDispatcher(Utils.permissionToUri(addPermissionName));
-		
-		request.setAttribute(AttributeName.LIST_OF_ROLES.value(), roleModule.getRoles());
         
         dispatcher.forward(request, response);
 	}

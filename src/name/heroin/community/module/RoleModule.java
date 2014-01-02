@@ -20,6 +20,7 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import name.heroin.community.constants.Parameters;
+import name.heroin.community.model.Permission;
 import name.heroin.community.model.Role;
 import name.heroin.community.utils.SessionProvider;
 import name.heroin.community.utils.std.SessionProviderHibernate;
@@ -110,9 +111,17 @@ public class RoleModule {
 	@POST
 	@Produces("application/json")
 	@Path("/add_role")
-	public Status addRole(@FormParam("roleName") String roleName) {
+	public Status addRole(@FormParam("roleName") String roleName, @FormParam("permissions[]") List<Integer> permissionIds) {
 		Role role = new Role();
 		role.setName(roleName);
+		
+		List<Permission> permissions = new ArrayList<Permission>();
+		for(Integer id : permissionIds) {
+			Permission permission = new Permission();
+			permission.setId(id);
+			permissions.add(permission);
+		}
+		role.setPermissions(permissions);
 				
 		SessionProvider sessionProvider = new SessionProviderHibernate();
 		
