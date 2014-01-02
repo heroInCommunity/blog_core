@@ -38,6 +38,22 @@ public class Comment {
 	
 	@Column (name = "is_visible")
 	private Boolean isVisible;
+	
+	@ManyToOne (cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinTable (
+			name = "post_comments",
+			joinColumns = @JoinColumn (name = "comment_id"),
+			inverseJoinColumns = @JoinColumn (name = "post_id")
+	)
+	private SlimPost post;
+
+	public SlimPost getPost() {
+		return post;
+	}
+
+	public void setPost(SlimPost post) {
+		this.post = post;
+	}
 
 	public Boolean getIsVisible() {
 		return isVisible;
