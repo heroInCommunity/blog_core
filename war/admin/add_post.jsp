@@ -94,7 +94,7 @@
 			 	plugins: ['restore_on_backspace', 'remove_button'],
 			    create: false,
 			    render: {
-			        option: function(item, escape) {console.log(item);
+			        option: function(item, escape) {
 			            return '<div>' +
 			                '<span class="title">' +
 			                    '<span class="by">' + escape(item.name) + '</span>' +

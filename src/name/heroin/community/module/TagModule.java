@@ -120,23 +120,4 @@ public class TagModule {
 		}
 		return tags;
 	}
-
-	public List<Tag> getByIds(List<Integer> ids) {
-		SessionProvider sessionProvider = new SessionProviderHibernate();
-
-		Session session = sessionProvider.getSession();
-		session.beginTransaction();
-
-		Criteria criteria = session.createCriteria(Tag.class);
-		criteria.add(Restrictions.in("id", ids));
-		List<Tag> tags = criteria.list();
-
-		session.getTransaction().commit();
-		session.close();
-
-		if (tags.isEmpty()) {
-			return null;
-		}
-		return tags;
-	}
 }

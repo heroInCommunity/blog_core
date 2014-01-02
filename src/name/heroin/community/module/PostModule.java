@@ -1,5 +1,6 @@
 package name.heroin.community.module;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.FormParam;
@@ -10,7 +11,6 @@ import javax.ws.rs.Produces;
 import name.heroin.community.model.Post;
 import name.heroin.community.model.SlimPost;
 import name.heroin.community.model.Tag;
-import name.heroin.community.model.User;
 import name.heroin.community.utils.SessionProvider;
 import name.heroin.community.utils.std.SessionProviderHibernate;
 import name.heroin.community.utils.std.Status;
@@ -25,8 +25,12 @@ public class PostModule {
 	@Produces("application/json")
 	@Path("/add_post")
 	public Status addPost(@FormParam("title") String title, @FormParam("body") String body, @FormParam("tags[]") List<Integer> tagIds) {
-		TagModule tagModule = new TagModule();
-		List<Tag> tags = tagModule.getByIds(tagIds);
+		List<Tag> tags = new ArrayList<Tag>();
+		for(Integer id : tagIds) {
+			Tag tag = new Tag();
+			tag.setId(id);
+			tags.add(tag);
+		}
 		
 		Post post = new Post();
 		post.setTitle(title);
