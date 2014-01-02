@@ -23,7 +23,7 @@ public class MainControllerRequestListener implements ServletRequestListener {
     public void requestInitialized(ServletRequestEvent servletRequestEvent) {
     	HttpServletRequest servletRequest = (HttpServletRequest) servletRequestEvent.getServletRequest();
     	
-    	if (servletRequest.getServletPath().contains("admin")) {
+    	if (servletRequest.getServletPath().contains("admin/")) {
     		String[] urlParts = servletRequest.getServletPath().split("/");
     		String methodName = "admin/" + urlParts[2];
     		String className = getClassName(methodName);
