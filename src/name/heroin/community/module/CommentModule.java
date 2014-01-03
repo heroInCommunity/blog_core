@@ -16,6 +16,7 @@ import javax.ws.rs.QueryParam;
 import name.heroin.community.constants.Parameters;
 import name.heroin.community.model.Comment;
 import name.heroin.community.model.SlimPost;
+import name.heroin.community.model.Tag;
 import name.heroin.community.model.User;
 import name.heroin.community.utils.SessionProvider;
 import name.heroin.community.utils.std.SessionProviderHibernate;
@@ -31,17 +32,19 @@ public class CommentModule {
 	@POST
 	@Produces("application/json")
 	@Path("/add_comment")
-	public Status addComment(@FormParam("userId") Integer userId, @FormParam("postId") Integer postId, @FormParam("commentText") String commentText) {
-		UserModule userModule = new UserModule();		
+	public Status addComment(@FormParam("userId") Integer userId,
+			@FormParam("postId") Integer postId,
+			@FormParam("commentText") String commentText) {
+		UserModule userModule = new UserModule();
 		User user = userModule.getById(userId);
-		
+
 		Comment comment = new Comment();
 		comment.setCommentText(commentText);
 		comment.setUser(user);
-		
+
 		SlimPost slimPost = new SlimPost();
 		slimPost.setId(postId);
-		
+
 		comment.setPost(slimPost);
 		comment.setIsVisible(true);
 
@@ -57,6 +60,54 @@ public class CommentModule {
 
 		Status status = new Status();
 		status.setText("success");
+
+		return status;
+	}
+
+	@POST
+	@Produces("application/json")
+	@Path("/edit_comment")
+	public Status editComment(@FormParam("id") Integer commentId,
+			@FormParam("userId") Integer userId,
+			@FormParam("postId") Integer postId,
+			@FormParam("commentText") String commentText,
+			@FormParam("visible") String isVisible) {
+		Status status = new Status();
+		if(commentId == null) {
+			status.setText("error");
+			return status;
+		}
+
+		Comment comment = getById(commentId);
+		
+		if(comment != null) {
+			UserModule userModule = new UserModule();
+			User user = userModule.getById(userId);
+			
+			comment.setCommentText(commentText);
+			comment.setUser(user);
+			comment.setIsVisible(new Boolean(isVisible));
+
+			SlimPost slimPost = new SlimPost();
+			slimPost.setId(postId);
+
+			comment.setPost(slimPost);
+
+			SessionProvider sessionProvider = new SessionProviderHibernate();
+
+			Session session = sessionProvider.getSession();
+			session.beginTransaction();
+
+			session.update(comment);
+
+			session.getTransaction().commit();
+			session.close();
+
+			status.setText("success");
+		}
+		else {
+			status.setText("error");
+		}
 
 		return status;
 	}
@@ -77,10 +128,11 @@ public class CommentModule {
 
 		Criteria criteria = session.createCriteria(Comment.class);
 
-		if (search.length() >= Integer.parseInt(Parameters.Constants.MIN_LENGTH_TO_SEARCH)) {
+		if (search.length() >= Integer
+				.parseInt(Parameters.Constants.MIN_LENGTH_TO_SEARCH)) {
 			criteria.add(Restrictions.like("commentText", search + "%"));
 		}
-		
+
 		criteria.setFirstResult(start);
 		criteria.setMaxResults(length);
 		List<Comment> comments = criteria.list();
@@ -94,15 +146,14 @@ public class CommentModule {
 		result.put("sEcho", echo);
 		result.put("iTotalRecords", commentsCount);
 		result.put("iTotalDisplayRecords", commentsCount);
-		
-		//setPosts(comments);
 
 		List<ArrayList<String>> data = new ArrayList<ArrayList<String>>();
 		for (Comment comment : comments) {
 			ArrayList<String> row = new ArrayList<String>();
-			row.add("<input type='checkbox' class='ids' value='" + comment.getId()
-					+ "' />");
-			row.add(comment.getUser().getName() + " : " + comment.getUser().getEmail());
+			row.add("<input type='checkbox' class='ids' value='"
+					+ comment.getId() + "' />");
+			row.add(comment.getUser().getName() + " : "
+					+ comment.getUser().getEmail());
 			row.add(comment.getPost().getTitle());
 			row.add(comment.getCommentText());
 			row.add(comment.getIsVisible() ? "Visible" : "Invisible");
@@ -113,26 +164,24 @@ public class CommentModule {
 
 		return result;
 	}
-	
-	public List<Comment> setPosts(List<Comment> comments) {
+
+	public Comment getById(int commentId) {
 		SessionProvider sessionProvider = new SessionProviderHibernate();
 
 		Session session = sessionProvider.getSession();
 		session.beginTransaction();
 
-		for(Comment comment : comments) {
-//			Criteria criteria = session.createCriteria(Comment.class);
-//			criteria.add(Restrictions.eq("id", comment.getId()));
-//			//criteria.setProjection(Projections.property("post"));
-//			List<Comment> coms = criteria.list();
-//			comment.setPost(coms.get(0).getPost());
-			List<SlimPost> posts = (List<SlimPost>) session.getNamedQuery("getPostForComment").setString("id", new Integer(comment.getId()).toString()).list();
-			comment.setPost(posts.get(0));
-		}
+		Criteria criteria = session.createCriteria(Comment.class);
+		criteria.add(Restrictions.eq("id", commentId));
+
+		List<Comment> comments = criteria.list();
 
 		session.getTransaction().commit();
 		session.close();
-		
-		return comments;
+
+		if (comments.isEmpty()) {
+			return null;
+		}
+		return comments.get(0);
 	}
 }

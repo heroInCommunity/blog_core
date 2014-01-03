@@ -9,7 +9,9 @@ import javax.servlet.http.*;
 
 import name.heroin.community.constants.AttributeName;
 import name.heroin.community.constants.MenuName;
+import name.heroin.community.model.User;
 import name.heroin.community.module.RoleModule;
+import name.heroin.community.module.UserModule;
 import name.heroin.community.utils.std.Utils;
 
 public class UsersServlet extends HttpServlet {
@@ -54,9 +56,21 @@ public class UsersServlet extends HttpServlet {
 	
 	private void editUser(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		ServletContext context = getServletContext();
-        RequestDispatcher dispatcher = context.getRequestDispatcher(Utils.permissionToUri(editUserName));
-        
-        dispatcher.forward(request, response);
+		
+		if(request.getParameter("id") != null && Utils.checkNumber(request.getParameter("id"))) {
+			int userId = Integer.parseInt(request.getParameter("id"));
+			UserModule userModule = new UserModule();
+			User user = userModule.getById(userId);
+			
+			if(user != null) {
+				RequestDispatcher dispatcher = context.getRequestDispatcher(Utils.permissionToUri(editUserName));
+				
+				request.setAttribute(AttributeName.LIST_OF_ROLES.value(), roleModule.getRoles());
+				request.setAttribute(AttributeName.USER.value(), user);
+				
+		        dispatcher.forward(request, response);
+			}
+		}
 	}
 }
 

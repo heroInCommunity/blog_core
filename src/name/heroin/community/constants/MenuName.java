@@ -19,7 +19,7 @@ public enum MenuName {
 	ADMIN_ROLES("admin/roles"),
 	ADMIN_ALL_ROLES("admin/all_roles"),
 	ADMIN_ADD_ROLE("admin/add_role"),
-	ADMIN_EDIT_ROLE("admin_role"),
+	ADMIN_EDIT_ROLE("admin/edit_role"),
 	
 	ADMIN_USERS("admin/users"),
 	ADMIN_ALL_USERS("admin/all_users"),

@@ -7,7 +7,10 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
+import name.heroin.community.constants.AttributeName;
 import name.heroin.community.constants.MenuName;
+import name.heroin.community.module.CommentModule;
+import name.heroin.community.model.Comment;
 import name.heroin.community.utils.std.Utils;
 
 public class CommentsServlet extends HttpServlet {
@@ -48,9 +51,18 @@ public class CommentsServlet extends HttpServlet {
 	
 	private void editComment(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		ServletContext context = getServletContext();
-        RequestDispatcher dispatcher = context.getRequestDispatcher(Utils.permissionToUri(editCommentName));
-		        
-        dispatcher.forward(request, response);
+		
+		if(request.getParameter("id") != null && Utils.checkNumber(request.getParameter("id"))) {
+			int commentId = Integer.parseInt(request.getParameter("id"));
+			CommentModule commentModule = new CommentModule();
+			Comment comment = commentModule.getById(commentId);
+			
+			if(comment != null) {
+				RequestDispatcher dispatcher = context.getRequestDispatcher(Utils.permissionToUri(editCommentName));
+				request.setAttribute(AttributeName.COMMENT.value(), comment);
+		        dispatcher.forward(request, response);
+			}
+		}
 	}
 }
 

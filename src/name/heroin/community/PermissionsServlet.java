@@ -7,7 +7,10 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
+import name.heroin.community.constants.AttributeName;
 import name.heroin.community.constants.MenuName;
+import name.heroin.community.model.Permission;
+import name.heroin.community.module.PermissionModule;
 import name.heroin.community.utils.std.Utils;
 
 public class PermissionsServlet extends HttpServlet {
@@ -47,10 +50,19 @@ public class PermissionsServlet extends HttpServlet {
 	}
 	
 	private void editPermission(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		ServletContext context = getServletContext();		
-        RequestDispatcher dispatcher = context.getRequestDispatcher(Utils.permissionToUri(editPermissionName));
+		ServletContext context = getServletContext();
         
-        dispatcher.forward(request, response);
+        if(request.getParameter("id") != null && Utils.checkNumber(request.getParameter("id"))) {
+        	int permissionId = Integer.parseInt(request.getParameter("id"));
+            PermissionModule permissionModule = new PermissionModule();
+            Permission permission = permissionModule.getById(permissionId);
+           
+            if(permission != null) {		
+                RequestDispatcher dispatcher = context.getRequestDispatcher(Utils.permissionToUri(editPermissionName));
+            	request.setAttribute(AttributeName.PERMISSION.value(), permission);
+                dispatcher.forward(request, response);
+            }
+        }
 	}
 }
 

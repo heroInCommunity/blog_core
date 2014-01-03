@@ -51,7 +51,6 @@ public class TagsServlet extends HttpServlet {
 	
 	private void editTag(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		ServletContext context = getServletContext();
-        RequestDispatcher dispatcher = context.getRequestDispatcher(Utils.permissionToUri(editTagName));
         
         if(request.getParameter("id") != null && Utils.checkNumber(request.getParameter("id"))) {
 	        int tagId = Integer.parseInt(request.getParameter("id"));
@@ -59,6 +58,7 @@ public class TagsServlet extends HttpServlet {
 	        Tag tag = tagModule.getById(tagId);
 	        
 	        if(tag != null) {
+	            RequestDispatcher dispatcher = context.getRequestDispatcher(Utils.permissionToUri(editTagName));
 	        	request.setAttribute(AttributeName.TAG.value(), tag);
 		        dispatcher.forward(request, response);
 	        }

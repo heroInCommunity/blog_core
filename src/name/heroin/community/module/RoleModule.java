@@ -22,6 +22,7 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import name.heroin.community.constants.Parameters;
+import name.heroin.community.model.Comment;
 import name.heroin.community.model.Permission;
 import name.heroin.community.model.Role;
 import name.heroin.community.utils.SessionProvider;
@@ -157,5 +158,66 @@ public class RoleModule {
 		status.setText("success");
 		
 		return status;
+	}
+	
+	@POST
+	@Produces("application/json")
+	@Path("/edit_role")
+	public Status editRole(@FormParam("id") Integer roleId, @FormParam("roleName") String roleName, @FormParam("permissions[]") List<Integer> permissionIds) {
+		Status status = new Status();
+		if(roleId == null) {
+			status.setText("error");
+			return status;
+		}
+		
+		Role role = getById(roleId);
+		if(role != null) {
+			role.setName(roleName);
+			
+			Set<Permission> permissions = new HashSet<Permission>();
+			for(Integer id : permissionIds) {
+				Permission permission = new Permission();
+				permission.setId(id);
+				permissions.add(permission);
+			}
+			role.setPermissions(permissions);
+					
+			SessionProvider sessionProvider = new SessionProviderHibernate();
+			
+			Session session = sessionProvider.getSession();
+			session.beginTransaction();
+			
+			session.update(role);
+			
+			session.getTransaction().commit();
+			session.close();
+			
+			status.setText("success");
+		}
+		else {
+			status.setText("error");
+		}
+		
+		return status;
+	}
+
+	public Role getById(int roleId) {
+		SessionProvider sessionProvider = new SessionProviderHibernate();
+
+		Session session = sessionProvider.getSession();
+		session.beginTransaction();
+
+		Criteria criteria = session.createCriteria(Role.class);
+		criteria.add(Restrictions.eq("id", roleId));
+
+		List<Role> roles = criteria.list();
+
+		session.getTransaction().commit();
+		session.close();
+
+		if (roles.isEmpty()) {
+			return null;
+		}
+		return roles.get(0);
 	}
 }

@@ -7,7 +7,12 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
+import name.heroin.community.constants.AttributeName;
 import name.heroin.community.constants.MenuName;
+import name.heroin.community.model.Comment;
+import name.heroin.community.model.Role;
+import name.heroin.community.module.CommentModule;
+import name.heroin.community.module.RoleModule;
 import name.heroin.community.utils.std.Utils;
 
 public class RolesServlet extends HttpServlet {
@@ -48,9 +53,18 @@ public class RolesServlet extends HttpServlet {
 	
 	private void editRole(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		ServletContext context = getServletContext();
-        RequestDispatcher dispatcher = context.getRequestDispatcher(Utils.permissionToUri(editRoleName));
-		        
-        dispatcher.forward(request, response);
+		
+		if(request.getParameter("id") != null && Utils.checkNumber(request.getParameter("id"))) {
+			int roleId = Integer.parseInt(request.getParameter("id"));
+			RoleModule roleModule = new RoleModule();
+			Role role = roleModule.getById(roleId);
+			
+			if(role != null) {
+				RequestDispatcher dispatcher = context.getRequestDispatcher(Utils.permissionToUri(editRoleName));
+				request.setAttribute(AttributeName.ROLE.value(), role);
+		        dispatcher.forward(request, response);
+			}
+		}
 	}
 }
 

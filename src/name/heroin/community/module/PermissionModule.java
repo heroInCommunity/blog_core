@@ -12,6 +12,7 @@ import org.hibernate.criterion.Restrictions;
 
 import name.heroin.community.constants.Parameters;
 import name.heroin.community.model.Permission;
+import name.heroin.community.model.Tag;
 import name.heroin.community.utils.SessionProvider;
 import name.heroin.community.utils.std.SessionProviderHibernate;
 import name.heroin.community.utils.std.Status;
@@ -42,15 +43,17 @@ public class PermissionModule {
 
 		Criteria criteria = session.createCriteria(Permission.class);
 
-		if (search.length() >= Integer.parseInt(Parameters.Constants.MIN_LENGTH_TO_SEARCH)) {
+		if (search.length() >= Integer
+				.parseInt(Parameters.Constants.MIN_LENGTH_TO_SEARCH)) {
 			criteria.add(Restrictions.like("name", search + "%"));
 		}
-		
+
 		criteria.setFirstResult(start);
 		criteria.setMaxResults(length);
 		List<Permission> permissions = criteria.list();
 
-		Number permissionsCount = (Number) session.createCriteria(Permission.class)
+		Number permissionsCount = (Number) session
+				.createCriteria(Permission.class)
 				.setProjection(Projections.rowCount()).uniqueResult();
 
 		session.getTransaction().commit();
@@ -63,8 +66,8 @@ public class PermissionModule {
 		List<ArrayList<String>> data = new ArrayList<ArrayList<String>>();
 		for (Permission permission : permissions) {
 			ArrayList<String> row = new ArrayList<String>();
-			row.add("<input type='checkbox' class='ids' value='" + permission.getId()
-					+ "' />");
+			row.add("<input type='checkbox' class='ids' value='"
+					+ permission.getId() + "' />");
 			row.add(permission.getName());
 			data.add(row);
 		}
@@ -97,27 +100,83 @@ public class PermissionModule {
 		}
 		return permissions;
 	}
-	
+
 	@POST
 	@Produces("application/json")
 	@Path("/add_permission")
-	public Status addPermission(@FormParam("permissionName") String permissionName) {
+	public Status addPermission(
+			@FormParam("permissionName") String permissionName) {
 		Permission permission = new Permission();
 		permission.setName(permissionName);
-				
+
 		SessionProvider sessionProvider = new SessionProviderHibernate();
-		
+
 		Session session = sessionProvider.getSession();
 		session.beginTransaction();
-		
+
 		session.save(permission);
-		
+
 		session.getTransaction().commit();
 		session.close();
-		
+
 		Status status = new Status();
 		status.setText("success");
-		
+
 		return status;
+	}
+
+	@POST
+	@Produces("application/json")
+	@Path("/edit_permission")
+	public Status editPermission(@FormParam("id") Integer permissionId,
+			@FormParam("permissionName") String permissionName) {
+		Status status = new Status();
+		if (permissionId == null) {
+			status.setText("error");
+			return status;
+		}
+
+		Permission permission = getById(permissionId);
+
+		if (permission != null) {
+			permission.setName(permissionName);
+
+			SessionProvider sessionProvider = new SessionProviderHibernate();
+
+			Session session = sessionProvider.getSession();
+			session.beginTransaction();
+
+			session.update(permission);
+
+			session.getTransaction().commit();
+			session.close();
+
+			status.setText("success");
+		}
+		else {
+			status.setText("error");
+		}
+
+		return status;
+	}
+
+	public Permission getById(int permissionId) {
+		SessionProvider sessionProvider = new SessionProviderHibernate();
+
+		Session session = sessionProvider.getSession();
+		session.beginTransaction();
+
+		Criteria criteria = session.createCriteria(Permission.class);
+		criteria.add(Restrictions.eq("id", permissionId));
+
+		List<Permission> permissions = criteria.list();
+
+		session.getTransaction().commit();
+		session.close();
+
+		if (permissions.isEmpty()) {
+			return null;
+		}
+		return permissions.get(0);
 	}
 }

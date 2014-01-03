@@ -109,6 +109,46 @@ public class UserModule {
 	
 	@POST
 	@Produces("application/json")
+	@Path("/edit_user")
+	public Status editUser(@FormParam("id") Integer userId, @FormParam("userName") String userName,
+			@FormParam("userEmail") String userEmail, @FormParam("userRole") Integer userRole) {
+		Status status = new Status();
+		if(userId == null) {
+			status.setText("error");
+			return status;
+		}
+		
+		User user = getById(userId);
+		
+		if(user != null) {
+			user.setName(userName);
+			user.setEmail(userEmail);
+			
+			RoleModule roleModule = new RoleModule();
+			Role role = roleModule.getRoleById(userRole);
+			user.setRole(role);
+	
+			SessionProvider sessionProvider = new SessionProviderHibernate();
+	
+			Session session = sessionProvider.getSession();
+			session.beginTransaction();
+	
+			session.update(user);
+	
+			session.getTransaction().commit();
+			session.close();
+	
+			status.setText("success");
+		}
+		else {
+			status.setText("error");
+		}
+
+		return status;
+	}
+	
+	@POST
+	@Produces("application/json")
 	@Path("/search")
 	public List<User> search(@FormParam("term") String search) {
 		SessionProvider sessionProvider = new SessionProviderHibernate();
