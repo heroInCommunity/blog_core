@@ -7,9 +7,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
-import name.heroin.community.constants.AttributeName;
 import name.heroin.community.constants.MenuName;
-import name.heroin.community.module.RoleModule;
 import name.heroin.community.utils.std.Utils;
 
 public class RolesServlet extends HttpServlet {
@@ -19,8 +17,6 @@ public class RolesServlet extends HttpServlet {
 	private String allRolesName = MenuName.ADMIN_ALL_ROLES.value();
 	private String addRoleName = MenuName.ADMIN_ADD_ROLE.value();
 	private String editRoleName = MenuName.ADMIN_EDIT_ROLE.value();
-	
-	private RoleModule roleModule = new RoleModule();
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String servletPath = request.getServletPath().substring(1);

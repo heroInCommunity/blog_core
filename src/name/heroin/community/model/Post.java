@@ -1,8 +1,9 @@
 package name.heroin.community.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -36,13 +37,13 @@ public class Post {
         // This is used by JPA
     }
     
-    @OneToMany (cascade = CascadeType.PERSIST)
+    @OneToMany (cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	@JoinTable (
 			name = "post_tags",
 			joinColumns = @JoinColumn (name = "post_id"),
 			inverseJoinColumns = @JoinColumn (name = "tag_id")
 	)
-    private Collection<Tag> tags = new ArrayList<Tag>();
+    private Set<Tag> tags = new HashSet<Tag>();
     
     @OneToMany (cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	@JoinTable (
@@ -50,25 +51,25 @@ public class Post {
 			joinColumns = @JoinColumn (name = "post_id"),
 			inverseJoinColumns = @JoinColumn (name = "comment_id")
 	)
-    private Collection<Comment> comments = new ArrayList<Comment>();
+    private Set<Comment> comments = new LinkedHashSet<Comment>();
 
     public int getId() {
         return id;
     }
 
-    public Collection<Tag> getTags() {
+    public Set<Tag> getTags() {
 		return tags;
 	}
 
-	public void setTags(Collection<Tag> tags) {
+	public void setTags(Set<Tag> tags) {
 		this.tags = tags;
 	}
 
-	public Collection<Comment> getComments() {
+	public Set<Comment> getComments() {
 		return comments;
 	}
 
-	public void setComments(Collection<Comment> comments) {
+	public void setComments(Set<Comment> comments) {
 		this.comments = comments;
 	}
 

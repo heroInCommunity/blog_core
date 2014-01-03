@@ -2,8 +2,10 @@ package name.heroin.community.module;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.FormParam;
@@ -133,7 +135,7 @@ public class RoleModule {
 		Role role = new Role();
 		role.setName(roleName);
 		
-		List<Permission> permissions = new ArrayList<Permission>();
+		Set<Permission> permissions = new HashSet<Permission>();
 		for(Integer id : permissionIds) {
 			Permission permission = new Permission();
 			permission.setId(id);

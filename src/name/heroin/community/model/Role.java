@@ -1,7 +1,7 @@
 package name.heroin.community.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -35,13 +35,13 @@ public class Role {
 			joinColumns = @JoinColumn (name = "role_id"),
 			inverseJoinColumns = @JoinColumn (name = "permission_id")
 	)
-	private Collection<Permission> permissions = new ArrayList<Permission>();
+	private Set<Permission> permissions = new HashSet<Permission>();
 
-	public Collection<Permission> getPermissions() {
+	public Set<Permission> getPermissions() {
 		return permissions;
 	}
 
-	public void setPermissions(Collection<Permission> permissions) {
+	public void setPermissions(Set<Permission> permissions) {
 		this.permissions = permissions;
 	}
 

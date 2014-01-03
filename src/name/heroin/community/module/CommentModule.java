@@ -15,7 +15,7 @@ import javax.ws.rs.QueryParam;
 
 import name.heroin.community.constants.Parameters;
 import name.heroin.community.model.Comment;
-import name.heroin.community.model.Post;
+import name.heroin.community.model.SlimPost;
 import name.heroin.community.model.User;
 import name.heroin.community.utils.SessionProvider;
 import name.heroin.community.utils.std.SessionProviderHibernate;
@@ -23,7 +23,6 @@ import name.heroin.community.utils.std.Status;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
@@ -36,13 +35,14 @@ public class CommentModule {
 		UserModule userModule = new UserModule();		
 		User user = userModule.getById(userId);
 		
-		PostModule postModule = new PostModule();
-		Post post = postModule.getById(postId);
-		
 		Comment comment = new Comment();
 		comment.setCommentText(commentText);
 		comment.setUser(user);
-		post.getComments().add(comment);
+		
+		SlimPost slimPost = new SlimPost();
+		slimPost.setId(postId);
+		
+		comment.setPost(slimPost);
 		comment.setIsVisible(true);
 
 		SessionProvider sessionProvider = new SessionProviderHibernate();
@@ -50,7 +50,6 @@ public class CommentModule {
 		Session session = sessionProvider.getSession();
 		session.beginTransaction();
 
-		session.update(post);
 		session.save(comment);
 
 		session.getTransaction().commit();
@@ -95,6 +94,8 @@ public class CommentModule {
 		result.put("sEcho", echo);
 		result.put("iTotalRecords", commentsCount);
 		result.put("iTotalDisplayRecords", commentsCount);
+		
+		//setPosts(comments);
 
 		List<ArrayList<String>> data = new ArrayList<ArrayList<String>>();
 		for (Comment comment : comments) {
@@ -111,5 +112,27 @@ public class CommentModule {
 		result.put("aaData", data);
 
 		return result;
+	}
+	
+	public List<Comment> setPosts(List<Comment> comments) {
+		SessionProvider sessionProvider = new SessionProviderHibernate();
+
+		Session session = sessionProvider.getSession();
+		session.beginTransaction();
+
+		for(Comment comment : comments) {
+//			Criteria criteria = session.createCriteria(Comment.class);
+//			criteria.add(Restrictions.eq("id", comment.getId()));
+//			//criteria.setProjection(Projections.property("post"));
+//			List<Comment> coms = criteria.list();
+//			comment.setPost(coms.get(0).getPost());
+			List<SlimPost> posts = (List<SlimPost>) session.getNamedQuery("getPostForComment").setString("id", new Integer(comment.getId()).toString()).list();
+			comment.setPost(posts.get(0));
+		}
+
+		session.getTransaction().commit();
+		session.close();
+		
+		return comments;
 	}
 }
