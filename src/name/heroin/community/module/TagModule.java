@@ -53,23 +53,31 @@ public class TagModule {
 	@Produces("application/json")
 	@Path("/edit_tag")
 	public Status editTag(@FormParam("id") Integer tagId, @FormParam("tagName") String tagName) {
-		TagModule tagModule = new TagModule();
-		Tag tag = tagModule.getById(tagId);
-		
-		tag.setName(tagName);
-
-		SessionProvider sessionProvider = new SessionProviderHibernate();
-
-		Session session = sessionProvider.getSession();
-		session.beginTransaction();
-
-		session.update(tag);
-
-		session.getTransaction().commit();
-		session.close();
-
 		Status status = new Status();
-		status.setText("success");
+		if (tagId == null) {
+			status.setText("error");
+			return status;
+		}
+		
+		Tag tag = getById(tagId);
+		if(tag != null) {
+			tag.setName(tagName);
+
+			SessionProvider sessionProvider = new SessionProviderHibernate();
+
+			Session session = sessionProvider.getSession();
+			session.beginTransaction();
+
+			session.update(tag);
+
+			session.getTransaction().commit();
+			session.close();
+
+			status.setText("success");
+		}
+		else {
+			status.setText("error");
+		}
 
 		return status;
 	}

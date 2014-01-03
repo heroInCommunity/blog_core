@@ -53,13 +53,16 @@ public class TagsServlet extends HttpServlet {
 		ServletContext context = getServletContext();
         RequestDispatcher dispatcher = context.getRequestDispatcher(Utils.permissionToUri(editTagName));
         
-        int tagId = Integer.parseInt(request.getParameter("id"));
-        TagModule tagModule = new TagModule();
-        Tag tag = tagModule.getById(tagId);
-        
-        request.setAttribute(AttributeName.TAG.value(), tag);
-		        
-        dispatcher.forward(request, response);
+        if(request.getParameter("id") != null && Utils.checkNumber(request.getParameter("id"))) {
+	        int tagId = Integer.parseInt(request.getParameter("id"));
+	        TagModule tagModule = new TagModule();
+	        Tag tag = tagModule.getById(tagId);
+	        
+	        if(tag != null) {
+	        	request.setAttribute(AttributeName.TAG.value(), tag);
+		        dispatcher.forward(request, response);
+	        }
+        }
 	}
 }
 

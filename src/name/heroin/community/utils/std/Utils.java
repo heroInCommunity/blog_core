@@ -4,7 +4,18 @@ import javax.servlet.http.HttpServletRequest;
 
 import name.heroin.community.constants.MenuName;
 
-public class Utils {	
+public class Utils {
+	public static boolean checkNumber(String numberStr) {
+		try {
+			Integer.parseInt(numberStr);
+		}
+		catch(NumberFormatException exc) {
+			return false;
+		}
+		
+		return true;
+	}
+	
 	public static String permissionToUri(String permission) {
 		return "/" + permission + ".jsp";
 	}

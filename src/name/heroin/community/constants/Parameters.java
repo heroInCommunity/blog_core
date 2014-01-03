@@ -5,7 +5,8 @@ public enum Parameters {
 	I_DISPLAY_LENGTH(Constants.I_DISPLAY_LENGTH),
 	S_ECHO(Constants.S_ECHO),
 	S_SEARCH(Constants.S_SEARCH),
-	MIN_LENGTH_TO_SEARCH(Constants.MIN_LENGTH_TO_SEARCH);
+	MIN_LENGTH_TO_SEARCH(Constants.MIN_LENGTH_TO_SEARCH),
+	DEFAULT_EDIT_ID(Constants.DEFAULT_EDIT_ID);
 	
 	private final String value;
 	Parameters(String value) {
@@ -22,6 +23,7 @@ public enum Parameters {
 		public static final String S_ECHO = "1";
 		public static final String S_SEARCH = "";
 		public static final String MIN_LENGTH_TO_SEARCH = "3";
+		public static final String DEFAULT_EDIT_ID = "1";
 	}
 	
 	public static boolean contains(String search) {
