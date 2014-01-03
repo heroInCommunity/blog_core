@@ -5,7 +5,8 @@ public enum AttributeName {
 	SUB_LEVEL_MENU_ID("subLevelMenuId"),
 	TOP_LEVEL_MENU_ID("topLevelMenuId"),
 	LIST_OF_ROLES("listOfRoles"),
-	BASE_URL("baseUrl");
+	BASE_URL("baseUrl"),
+	TAG("tag");
 	
 	private final String value;
 	AttributeName(String value) {

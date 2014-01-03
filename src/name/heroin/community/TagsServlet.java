@@ -7,7 +7,10 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
+import name.heroin.community.constants.AttributeName;
 import name.heroin.community.constants.MenuName;
+import name.heroin.community.module.TagModule;
+import name.heroin.community.model.Tag;
 import name.heroin.community.utils.std.Utils;
 
 public class TagsServlet extends HttpServlet {
@@ -49,6 +52,12 @@ public class TagsServlet extends HttpServlet {
 	private void editTag(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		ServletContext context = getServletContext();
         RequestDispatcher dispatcher = context.getRequestDispatcher(Utils.permissionToUri(editTagName));
+        
+        int tagId = Integer.parseInt(request.getParameter("id"));
+        TagModule tagModule = new TagModule();
+        Tag tag = tagModule.getById(tagId);
+        
+        request.setAttribute(AttributeName.TAG.value(), tag);
 		        
         dispatcher.forward(request, response);
 	}

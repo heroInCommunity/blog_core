@@ -48,6 +48,31 @@ public class TagModule {
 
 		return status;
 	}
+	
+	@POST
+	@Produces("application/json")
+	@Path("/edit_tag")
+	public Status editTag(@FormParam("id") Integer tagId, @FormParam("tagName") String tagName) {
+		TagModule tagModule = new TagModule();
+		Tag tag = tagModule.getById(tagId);
+		
+		tag.setName(tagName);
+
+		SessionProvider sessionProvider = new SessionProviderHibernate();
+
+		Session session = sessionProvider.getSession();
+		session.beginTransaction();
+
+		session.update(tag);
+
+		session.getTransaction().commit();
+		session.close();
+
+		Status status = new Status();
+		status.setText("success");
+
+		return status;
+	}
 
 	@GET
 	@Produces("application/json")
@@ -119,5 +144,25 @@ public class TagModule {
 			return null;
 		}
 		return tags;
+	}
+
+	public Tag getById(int tagId) {
+		SessionProvider sessionProvider = new SessionProviderHibernate();
+
+		Session session = sessionProvider.getSession();
+		session.beginTransaction();
+
+		Criteria criteria = session.createCriteria(Tag.class);
+		criteria.add(Restrictions.eq("id", tagId));
+
+		List<Tag> tags = criteria.list();
+
+		session.getTransaction().commit();
+		session.close();
+
+		if (tags.isEmpty()) {
+			return null;
+		}
+		return tags.get(0);
 	}
 }

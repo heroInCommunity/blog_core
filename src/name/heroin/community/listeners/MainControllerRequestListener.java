@@ -35,8 +35,10 @@ public class MainControllerRequestListener implements ServletRequestListener {
     			MenuItem topLevelMenu = menuModule.getMenuByUrl(className);
     			servletRequest.setAttribute(AttributeName.TOP_LEVEL_MENU_ID.value(), topLevelMenu.getId());
     			
-    			MenuItem subLevelMenu = menuModule.getMenuByUrl(methodName);
-    			servletRequest.setAttribute(AttributeName.SUB_LEVEL_MENU_ID.value(), subLevelMenu.getId());
+    			if(!methodName.contains("edit")) {
+    				MenuItem subLevelMenu = menuModule.getMenuByUrl(methodName);
+        			servletRequest.setAttribute(AttributeName.SUB_LEVEL_MENU_ID.value(), subLevelMenu.getId());
+    			}
     			
     			servletRequest.setAttribute(AttributeName.BASE_URL.value(), Utils.getBaseUrl(servletRequest));
     		}

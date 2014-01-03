@@ -55,6 +55,10 @@ public class MenuModule {
 		session.getTransaction().commit();
 		session.close();
 		
+		if(menu.isEmpty()) {
+			return null;
+		}
+		
 		return menu.get(0);
 	}
 	
@@ -70,6 +74,10 @@ public class MenuModule {
 		
 		session.getTransaction().commit();
 		session.close();
+		
+		if(menu.isEmpty()) {
+			return null;
+		}
 		
 		return menu.get(0);
 	}
