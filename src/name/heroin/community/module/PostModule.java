@@ -222,7 +222,7 @@ public class PostModule {
 	@Produces("application/json")
 	@Path("/get_post_titles")
 	public List<SlimPost> getPostTitles(@DefaultValue(Parameters.Constants.S_SEARCH) @FormParam("search") String search,
-			@FormParam("tags[]") List<Integer> tagIds) {
+			@FormParam("tagIds[]") List<Integer> tagIds) {
 		SessionProvider sessionProvider = new SessionProviderHibernate();
 		
 		Session session = sessionProvider.getSession();
@@ -235,7 +235,7 @@ public class PostModule {
 		}
 		
 		if (tagIds != null && !tagIds.isEmpty()) {
-			criteria.add(Restrictions.and(Restrictions.in("post_tags", tagIds)));
+			criteria.createAlias("tags", "tag").add(Restrictions.in("tag.id", tagIds));
 		}
 		
 		criteria.setMaxResults(Integer.parseInt(Parameters.I_DISPLAY_LENGTH.value()));

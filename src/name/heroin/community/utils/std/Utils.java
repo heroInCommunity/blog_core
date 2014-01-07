@@ -22,7 +22,7 @@ public class Utils {
 	public static String getDisplayDate(Date date) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
-		return calendar.get(Calendar.MONTH) + "/" + calendar.get(Calendar.DATE) + "/" + calendar.get(Calendar.YEAR);
+		return calendar.get(Calendar.MONTH) + 1 + "/" + calendar.get(Calendar.DATE) + "/" + calendar.get(Calendar.YEAR);
 	}
 	
 	public static String permissionToUri(String permission) {

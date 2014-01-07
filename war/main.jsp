@@ -129,6 +129,11 @@
 		</script>
 		<script src="js/main.js"></script>
 		<script>
+			function getConvertTimestamp(timestamp) {
+				var date = new Date(timestamp);
+				return (date.getMonth() + 1) + "/" + date.getDate() + "/" + (date.getYear() - 100);
+			}
+			
 			$( document ).ready(function() {
 				$.ajaxSetup({
 					type: "POST",
@@ -166,25 +171,30 @@
 				            },
 				            success: function(res) {
 				                callback(res);
-				                var tagIds = [];
-				                for(tagId in tagIds) {
-				                	
-				                }
-				                $.ajax({
-				             		url: "<%=request.getAttribute(AttributeName.BASE_URL.value())%>" + "api/posts/get_post_titles",
-						            data: {
-						            	tagName: query
-					            	},
-						            error: function() {
-						                callback();
-						            },
-						            success: function(res) {
-						                callback(res);
-						            }
-						         });
 				            }
 				         });
 				     }
+				}).on('change', function() {
+	                var tagIds = [];
+	                $('div.selectize-input > div.item').each(function() {
+		        		if( ! isNaN($(this).attr('data-value')))
+		        			tagIds.push($(this).attr('data-value'));
+		        	});
+	                $.ajax({
+	             		url: "<%=request.getAttribute(AttributeName.BASE_URL.value())%>" + "api/posts/get_post_titles",
+			            data: {
+			            	tagIds: tagIds
+		            	},
+			            success: function(res) {
+			            	$('div.article-titles').html("");
+			                for (postId in res) {
+			                	var post = res[postId];
+			                	$('div.article-titles').append('<a href="#" class="list-group-item article-date-name">' +
+										'<div class="article-date">' + getConvertTimestamp(post.timestamp) + ':</div>&nbsp;' + post.title + 
+										'</a>');
+			                }
+			            }
+			         });
 				});
 		});
 		</script>

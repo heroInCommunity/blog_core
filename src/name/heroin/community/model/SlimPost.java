@@ -1,12 +1,19 @@
 package name.heroin.community.model;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -29,7 +36,23 @@ public class SlimPost {
     private String title;
     private Date timestamp;
     
-    public SlimPost() {
+    @OneToMany (cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinTable (
+			name = "post_tags",
+			joinColumns = @JoinColumn (name = "post_id"),
+			inverseJoinColumns = @JoinColumn (name = "tag_id")
+	)
+    private Set<Tag> tags = new HashSet<Tag>();
+    
+    public Set<Tag> getTags() {
+		return tags;
+	}
+
+	public void setTags(Set<Tag> tags) {
+		this.tags = tags;
+	}
+
+	public SlimPost() {
         // This is used by JPA
     }
     
