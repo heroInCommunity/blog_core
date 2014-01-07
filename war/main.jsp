@@ -43,10 +43,10 @@
 							<a href="main">Home</a>
 						</li>
 						<li>
-							<a href="projects.html">Projects</a>
+							<a href="projects">Projects</a>
 						</li>
 						<li>
-							<a href="about.html">About</a>
+							<a href="about">About</a>
 						</li>
 					</ul>
 				</div><!--/.nav-collapse -->

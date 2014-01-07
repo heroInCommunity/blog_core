@@ -18,6 +18,9 @@
 	<include path="/**.css" />
 	<include path="/**.png" />
 	<include path="/**.gif" />
+	<include path="/**.ico" />
+	<include path="/**.jpg" />
+	<include path="/**.jpeg" />
   </static-files>
 
   <!--

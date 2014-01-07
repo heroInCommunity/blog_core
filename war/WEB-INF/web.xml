@@ -23,6 +23,24 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<url-pattern>/main</url-pattern>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>AboutFrontend</servlet-name>
+		<servlet-class>name.heroin.community.AboutFrontendServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AboutFrontend</servlet-name>
+		<url-pattern>/about</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ProjectsFrontend</servlet-name>
+		<servlet-class>name.heroin.community.ProjectsFrontendServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ProjectsFrontend</servlet-name>
+		<url-pattern>/projects</url-pattern>
+	</servlet-mapping>
 	
 	<servlet>
 		<servlet-name>AdminServlet</servlet-name>
