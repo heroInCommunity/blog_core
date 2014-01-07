@@ -27,6 +27,7 @@ import name.heroin.community.utils.std.Status;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
@@ -54,6 +55,7 @@ public class PostModule {
 		
 		criteria.setFirstResult(start);
 		criteria.setMaxResults(length);
+		criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
 		List<Post> posts = criteria.list();
 
 		Number postsCount = (Number) session.createCriteria(Post.class)
@@ -133,6 +135,51 @@ public class PostModule {
 		
 		Status status = new Status();
 		status.setText("success");
+		
+		return status;
+	}
+	
+	@POST
+	@Produces("application/json")
+	@Path("/edit_post")
+	public Status editPost(@FormParam("id") Integer postId, @FormParam("title") String title, 
+			@FormParam("body") String body, @FormParam("tags[]") List<Integer> tagIds) {
+		Status status = new Status();
+		if(postId == null) {
+			status.setText("error");
+			return status;
+		}
+		
+		Post post = getById(postId);
+		
+		if(post != null) {
+			Set<Tag> tags = new HashSet<Tag>();
+			for(Integer id : tagIds) {
+				Tag tag = new Tag();
+				tag.setId(id);
+				tags.add(tag);
+			}
+			post.setTags(tags);
+			
+			post.setTitle(title);
+			post.setBody(body);
+			post.setTimestamp(new Date());
+					
+			SessionProvider sessionProvider = new SessionProviderHibernate();
+			
+			Session session = sessionProvider.getSession();
+			session.beginTransaction();
+			
+			session.update(post);
+			
+			session.getTransaction().commit();
+			session.close();
+			
+			status.setText("success");
+		}
+		else {
+			status.setText("error");
+		}
 		
 		return status;
 	}

@@ -7,7 +7,12 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
+import name.heroin.community.constants.AttributeName;
 import name.heroin.community.constants.MenuName;
+import name.heroin.community.model.Post;
+import name.heroin.community.model.User;
+import name.heroin.community.module.PostModule;
+import name.heroin.community.module.UserModule;
 import name.heroin.community.utils.std.Utils;
 
 public class PostsServlet extends HttpServlet {
@@ -48,9 +53,18 @@ public class PostsServlet extends HttpServlet {
 	
 	private void editPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		ServletContext context = getServletContext();
-        RequestDispatcher dispatcher = context.getRequestDispatcher(Utils.permissionToUri(editPostName));
-		        
-        dispatcher.forward(request, response);
+		
+		if(request.getParameter("id") != null && Utils.checkNumber(request.getParameter("id"))) {
+			int postId = Integer.parseInt(request.getParameter("id"));
+			PostModule postModule = new PostModule();
+			Post post = postModule.getById(postId);
+			
+			if(post != null) {
+				RequestDispatcher dispatcher = context.getRequestDispatcher(Utils.permissionToUri(editPostName));
+				request.setAttribute(AttributeName.POST.value(), post);
+		        dispatcher.forward(request, response);
+			}
+		}
 	}
 }
 
