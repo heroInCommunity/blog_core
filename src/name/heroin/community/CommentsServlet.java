@@ -24,13 +24,13 @@ public class CommentsServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String servletPath = request.getServletPath().substring(1);
 		
-		if(servletPath.equals(commentsName) || servletPath.equals(allCommentsName)) {
+		if (servletPath.equals(commentsName) || servletPath.equals(allCommentsName)) {
 			comments(request, response);
 		}
-		else if(servletPath.equals(addCommentName)) {
+		else if (servletPath.equals(addCommentName)) {
 			addComment(request, response);
 		}
-		else if(servletPath.equals(editCommentName)) {
+		else if (servletPath.equals(editCommentName)) {
 			editComment(request, response);
 		}
 	}
@@ -52,12 +52,12 @@ public class CommentsServlet extends HttpServlet {
 	private void editComment(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		ServletContext context = getServletContext();
 		
-		if(request.getParameter("id") != null && Utils.checkNumber(request.getParameter("id"))) {
+		if (request.getParameter("id") != null && Utils.checkNumber(request.getParameter("id"))) {
 			int commentId = Integer.parseInt(request.getParameter("id"));
 			CommentModule commentModule = new CommentModule();
 			Comment comment = commentModule.getById(commentId);
 			
-			if(comment != null) {
+			if (comment != null) {
 				RequestDispatcher dispatcher = context.getRequestDispatcher(Utils.permissionToUri(editCommentName));
 				request.setAttribute(AttributeName.COMMENT.value(), comment);
 		        dispatcher.forward(request, response);

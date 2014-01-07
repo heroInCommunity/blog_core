@@ -1,6 +1,7 @@
 package name.heroin.community;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -23,9 +24,9 @@ public class MainFrontendServlet extends HttpServlet {
 		PostModule postModule = new PostModule();
 		Post latestPost = postModule.getLatestPost();
 		
-		List<SlimPost> posts = postModule.getPostTitles("");
+		List<SlimPost> posts = postModule.getPostTitles("", Collections.EMPTY_LIST);
 		
-		if(latestPost != null && posts != null) {
+		if (latestPost != null && posts != null) {
 			ServletContext context = getServletContext();
 			RequestDispatcher dispatcher = context.getRequestDispatcher(Utils.permissionToUri("main"));
         	request.setAttribute(AttributeName.LATEST_POST.value(), latestPost);

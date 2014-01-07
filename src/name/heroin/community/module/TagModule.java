@@ -60,7 +60,7 @@ public class TagModule {
 		}
 		
 		Tag tag = getById(tagId);
-		if(tag != null) {
+		if (tag != null) {
 			tag.setName(tagName);
 
 			SessionProvider sessionProvider = new SessionProviderHibernate();

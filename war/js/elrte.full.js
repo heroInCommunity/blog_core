@@ -2206,7 +2206,7 @@ elRTE.prototype.dom = function(rte) {
 			// 	this.rte.log(mx[i]);
 			// }
 			if (x>=0) {
-				for(var r=0; r<mx.length; r++) {
+				for (var r=0; r<mx.length; r++) {
 					var tmp = mx[r][x]||null;
 					if (tmp) {
 						if (tmp.nodeName) {

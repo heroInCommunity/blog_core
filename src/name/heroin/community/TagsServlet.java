@@ -24,13 +24,13 @@ public class TagsServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String servletPath = request.getServletPath().substring(1);
 		
-		if(servletPath.equals(tagsName) || servletPath.equals(allTagsName)) {
+		if (servletPath.equals(tagsName) || servletPath.equals(allTagsName)) {
 			tags(request, response);
 		}
-		else if(servletPath.equals(addTagName)) {
+		else if (servletPath.equals(addTagName)) {
 			addTag(request, response);
 		}
-		else if(servletPath.equals(editTagName)) {
+		else if (servletPath.equals(editTagName)) {
 			editTag(request, response);
 		}
 	}
@@ -52,12 +52,12 @@ public class TagsServlet extends HttpServlet {
 	private void editTag(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		ServletContext context = getServletContext();
         
-        if(request.getParameter("id") != null && Utils.checkNumber(request.getParameter("id"))) {
+        if (request.getParameter("id") != null && Utils.checkNumber(request.getParameter("id"))) {
 	        int tagId = Integer.parseInt(request.getParameter("id"));
 	        TagModule tagModule = new TagModule();
 	        Tag tag = tagModule.getById(tagId);
 	        
-	        if(tag != null) {
+	        if (tag != null) {
 	            RequestDispatcher dispatcher = context.getRequestDispatcher(Utils.permissionToUri(editTagName));
 	        	request.setAttribute(AttributeName.TAG.value(), tag);
 		        dispatcher.forward(request, response);

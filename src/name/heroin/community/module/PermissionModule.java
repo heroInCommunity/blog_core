@@ -12,7 +12,6 @@ import org.hibernate.criterion.Restrictions;
 
 import name.heroin.community.constants.Parameters;
 import name.heroin.community.model.Permission;
-import name.heroin.community.model.Tag;
 import name.heroin.community.utils.SessionProvider;
 import name.heroin.community.utils.std.SessionProviderHibernate;
 import name.heroin.community.utils.std.Status;

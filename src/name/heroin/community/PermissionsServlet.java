@@ -24,13 +24,13 @@ public class PermissionsServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String servletPath = request.getServletPath().substring(1);
 		
-		if(servletPath.equals(permissionsName) || servletPath.equals(allPermissionsName)) {
+		if (servletPath.equals(permissionsName) || servletPath.equals(allPermissionsName)) {
 			permissions(request, response);
 		}
-		else if(servletPath.equals(addPermissionName)) {
+		else if (servletPath.equals(addPermissionName)) {
 			addPermission(request, response);
 		}
-		else if(servletPath.equals(editPermissionName)) {
+		else if (servletPath.equals(editPermissionName)) {
 			editPermission(request, response);
 		}
 	}
@@ -52,12 +52,12 @@ public class PermissionsServlet extends HttpServlet {
 	private void editPermission(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		ServletContext context = getServletContext();
         
-        if(request.getParameter("id") != null && Utils.checkNumber(request.getParameter("id"))) {
+        if (request.getParameter("id") != null && Utils.checkNumber(request.getParameter("id"))) {
         	int permissionId = Integer.parseInt(request.getParameter("id"));
             PermissionModule permissionModule = new PermissionModule();
             Permission permission = permissionModule.getById(permissionId);
            
-            if(permission != null) {		
+            if (permission != null) {		
                 RequestDispatcher dispatcher = context.getRequestDispatcher(Utils.permissionToUri(editPermissionName));
             	request.setAttribute(AttributeName.PERMISSION.value(), permission);
                 dispatcher.forward(request, response);

@@ -27,13 +27,13 @@ public class UsersServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String servletPath = request.getServletPath().substring(1);
 		
-		if(servletPath.equals(usersName) || servletPath.equals(allUsersName)) {
+		if (servletPath.equals(usersName) || servletPath.equals(allUsersName)) {
 			users(request, response);
 		}
-		else if(servletPath.equals(addUserName)) {
+		else if (servletPath.equals(addUserName)) {
 			addUser(request, response);
 		}
-		else if(servletPath.equals(editUserName)) {
+		else if (servletPath.equals(editUserName)) {
 			editUser(request, response);
 		}
 	}
@@ -57,12 +57,12 @@ public class UsersServlet extends HttpServlet {
 	private void editUser(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		ServletContext context = getServletContext();
 		
-		if(request.getParameter("id") != null && Utils.checkNumber(request.getParameter("id"))) {
+		if (request.getParameter("id") != null && Utils.checkNumber(request.getParameter("id"))) {
 			int userId = Integer.parseInt(request.getParameter("id"));
 			UserModule userModule = new UserModule();
 			User user = userModule.getById(userId);
 			
-			if(user != null) {
+			if (user != null) {
 				RequestDispatcher dispatcher = context.getRequestDispatcher(Utils.permissionToUri(editUserName));
 				
 				request.setAttribute(AttributeName.LIST_OF_ROLES.value(), roleModule.getRoles());

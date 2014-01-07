@@ -16,7 +16,6 @@ import javax.ws.rs.QueryParam;
 import name.heroin.community.constants.Parameters;
 import name.heroin.community.model.Comment;
 import name.heroin.community.model.SlimPost;
-import name.heroin.community.model.Tag;
 import name.heroin.community.model.User;
 import name.heroin.community.utils.SessionProvider;
 import name.heroin.community.utils.std.SessionProviderHibernate;
@@ -73,14 +72,14 @@ public class CommentModule {
 			@FormParam("commentText") String commentText,
 			@FormParam("visible") String isVisible) {
 		Status status = new Status();
-		if(commentId == null) {
+		if (commentId == null) {
 			status.setText("error");
 			return status;
 		}
 
 		Comment comment = getById(commentId);
 		
-		if(comment != null) {
+		if (comment != null) {
 			UserModule userModule = new UserModule();
 			User user = userModule.getById(userId);
 			

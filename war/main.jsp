@@ -166,6 +166,22 @@
 				            },
 				            success: function(res) {
 				                callback(res);
+				                var tagIds = [];
+				                for(tagId in tagIds) {
+				                	
+				                }
+				                $.ajax({
+				             		url: "<%=request.getAttribute(AttributeName.BASE_URL.value())%>" + "api/posts/get_post_titles",
+						            data: {
+						            	tagName: query
+					            	},
+						            error: function() {
+						                callback();
+						            },
+						            success: function(res) {
+						                callback(res);
+						            }
+						         });
 				            }
 				         });
 				     }

@@ -23,7 +23,7 @@ public class MainControllerRequestListener implements ServletRequestListener {
     public void requestInitialized(ServletRequestEvent servletRequestEvent) {
     	HttpServletRequest servletRequest = (HttpServletRequest) servletRequestEvent.getServletRequest();
     	
-    	if(isServletUrl(servletRequest)) {
+    	if (isServletUrl(servletRequest)) {
     		servletRequest.setAttribute(AttributeName.BASE_URL.value(), Utils.getBaseUrl(servletRequest));
     	}
     	
@@ -39,7 +39,7 @@ public class MainControllerRequestListener implements ServletRequestListener {
     			MenuItem topLevelMenu = menuModule.getMenuByUrl(className);
     			servletRequest.setAttribute(AttributeName.TOP_LEVEL_MENU_ID.value(), topLevelMenu.getId());
     			
-    			if(!methodName.contains("edit")) {
+    			if (!methodName.contains("edit")) {
     				MenuItem subLevelMenu = menuModule.getMenuByUrl(methodName);
         			servletRequest.setAttribute(AttributeName.SUB_LEVEL_MENU_ID.value(), subLevelMenu.getId());
     			}
@@ -48,7 +48,7 @@ public class MainControllerRequestListener implements ServletRequestListener {
     }
     
     private Boolean isServletUrl(HttpServletRequest servletRequest) {
-    	if(!servletRequest.getServletPath().contains("js/") && !servletRequest.getServletPath().contains("css/") 
+    	if (!servletRequest.getServletPath().contains("js/") && !servletRequest.getServletPath().contains("css/") 
     		&& !servletRequest.getServletPath().contains("images/")) {
     		return true;
     	}

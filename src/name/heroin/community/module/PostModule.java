@@ -1,7 +1,6 @@
 package name.heroin.community.module;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -90,7 +89,7 @@ public class PostModule {
 		StringBuffer stringBuffer = new StringBuffer();
 		
 		int iter = 0;
-		for(Tag tag : post.getTags()) {
+		for (Tag tag : post.getTags()) {
 			if (iter != 0) {
 				stringBuffer.append(", ");
 			}
@@ -108,7 +107,7 @@ public class PostModule {
 	public Status addPost(@FormParam("title") String title, @FormParam("description") String description, 
 			@FormParam("body") String body, @FormParam("tags[]") List<Integer> tagIds) {
 		Set<Tag> tags = new HashSet<Tag>();
-		for(Integer id : tagIds) {
+		for (Integer id : tagIds) {
 			Tag tag = new Tag();
 			tag.setId(id);
 			tags.add(tag);
@@ -143,16 +142,16 @@ public class PostModule {
 	public Status editPost(@FormParam("id") Integer postId, @FormParam("title") String title, @FormParam("description") String description, 
 			@FormParam("body") String body, @FormParam("tags[]") List<Integer> tagIds) {
 		Status status = new Status();
-		if(postId == null) {
+		if (postId == null) {
 			status.setText("error");
 			return status;
 		}
 		
 		Post post = getById(postId);
 		
-		if(post != null) {
+		if (post != null) {
 			Set<Tag> tags = new HashSet<Tag>();
-			for(Integer id : tagIds) {
+			for (Integer id : tagIds) {
 				Tag tag = new Tag();
 				tag.setId(id);
 				tags.add(tag);
@@ -219,7 +218,11 @@ public class PostModule {
 		return posts.get(0);
 	}
 	
-	public List<SlimPost> getPostTitles(@DefaultValue(Parameters.Constants.S_SEARCH) @QueryParam("sSearch") String search) {
+	@POST
+	@Produces("application/json")
+	@Path("/get_post_titles")
+	public List<SlimPost> getPostTitles(@DefaultValue(Parameters.Constants.S_SEARCH) @FormParam("search") String search,
+			@FormParam("tags[]") List<Integer> tagIds) {
 		SessionProvider sessionProvider = new SessionProviderHibernate();
 		
 		Session session = sessionProvider.getSession();
@@ -229,6 +232,10 @@ public class PostModule {
 
 		if (search.length() >= Integer.parseInt(Parameters.Constants.MIN_LENGTH_TO_SEARCH)) {
 			criteria.add(Restrictions.like("title", search + "%"));
+		}
+		
+		if (tagIds != null && !tagIds.isEmpty()) {
+			criteria.add(Restrictions.and(Restrictions.in("post_tags", tagIds)));
 		}
 		
 		criteria.setMaxResults(Integer.parseInt(Parameters.I_DISPLAY_LENGTH.value()));

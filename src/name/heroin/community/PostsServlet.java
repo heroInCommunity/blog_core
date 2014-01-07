@@ -10,9 +10,7 @@ import javax.servlet.http.*;
 import name.heroin.community.constants.AttributeName;
 import name.heroin.community.constants.MenuName;
 import name.heroin.community.model.Post;
-import name.heroin.community.model.User;
 import name.heroin.community.module.PostModule;
-import name.heroin.community.module.UserModule;
 import name.heroin.community.utils.std.Utils;
 
 public class PostsServlet extends HttpServlet {
@@ -26,13 +24,13 @@ public class PostsServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String servletPath = request.getServletPath().substring(1);
 		
-		if(servletPath.equals(postsName) || servletPath.equals(allPostsName)) {
+		if (servletPath.equals(postsName) || servletPath.equals(allPostsName)) {
 			posts(request, response);
 		}
-		else if(servletPath.equals(addPostName)) {
+		else if (servletPath.equals(addPostName)) {
 			addPost(request, response);
 		}
-		else if(servletPath.equals(editPostName)) {
+		else if (servletPath.equals(editPostName)) {
 			editPost(request, response);
 		}
 	}
@@ -54,12 +52,12 @@ public class PostsServlet extends HttpServlet {
 	private void editPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		ServletContext context = getServletContext();
 		
-		if(request.getParameter("id") != null && Utils.checkNumber(request.getParameter("id"))) {
+		if (request.getParameter("id") != null && Utils.checkNumber(request.getParameter("id"))) {
 			int postId = Integer.parseInt(request.getParameter("id"));
 			PostModule postModule = new PostModule();
 			Post post = postModule.getById(postId);
 			
-			if(post != null) {
+			if (post != null) {
 				RequestDispatcher dispatcher = context.getRequestDispatcher(Utils.permissionToUri(editPostName));
 				request.setAttribute(AttributeName.POST.value(), post);
 		        dispatcher.forward(request, response);

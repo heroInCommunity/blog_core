@@ -4573,7 +4573,7 @@
 				sNameEQ = sName + '_' + aParts[aParts.length-1].replace(/[\/:]/g,"").toLowerCase() + '=',
 			 	sCookieContents = document.cookie.split(';');
 			
-			for( var i=0 ; i<sCookieContents.length ; i++ )
+			for ( var i=0 ; i<sCookieContents.length ; i++ )
 			{
 				var c = sCookieContents[i];
 				

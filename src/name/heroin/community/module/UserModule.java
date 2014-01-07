@@ -19,7 +19,6 @@ import name.heroin.community.model.User;
 import name.heroin.community.utils.SessionProvider;
 import name.heroin.community.utils.std.SessionProviderHibernate;
 import name.heroin.community.utils.std.Status;
-import name.heroin.community.utils.std.Utils;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -116,14 +115,14 @@ public class UserModule {
 	public Status editUser(@FormParam("id") Integer userId, @FormParam("userName") String userName,
 			@FormParam("userEmail") String userEmail, @FormParam("userRole") Integer userRole) {
 		Status status = new Status();
-		if(userId == null) {
+		if (userId == null) {
 			status.setText("error");
 			return status;
 		}
 		
 		User user = getById(userId);
 		
-		if(user != null) {
+		if (user != null) {
 			user.setName(userName);
 			user.setEmail(userEmail);
 			
