@@ -150,12 +150,10 @@ public class CommentModule {
 		List<ArrayList<String>> data = new ArrayList<ArrayList<String>>();
 		for (Comment comment : comments) {
 			ArrayList<String> row = new ArrayList<String>();
-			row.add("<input type='checkbox' class='ids' value='"
-					+ comment.getId() + "' />");
-			row.add(comment.getUser().getName() + " : "
-					+ comment.getUser().getEmail());
-			row.add(comment.getPost().getTitle());
-			row.add(comment.getCommentText());
+			row.add("<input type='checkbox' class='ids' value='" + comment.getId() + "' />");
+			row.add("<a href='edit_user?id=" + comment.getUser().getId() + "'>" + comment.getUser().getName() + " : " + comment.getUser().getEmail() + "</a>");
+			row.add("<a href='edit_post?id=" + comment.getPost().getId() + "'>" + comment.getPost().getTitle() + "</a>");
+			row.add("<a href='edit_comment?id=" + comment.getId() + "'>" + comment.getCommentText() + "</a>");
 			row.add(comment.getIsVisible() ? "Visible" : "Invisible");
 			data.add(row);
 		}

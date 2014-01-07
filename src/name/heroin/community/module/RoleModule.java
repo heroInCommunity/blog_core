@@ -87,7 +87,7 @@ public class RoleModule {
 			ArrayList<String> row = new ArrayList<String>();
 			row.add("<input type='checkbox' class='ids' value='" + role.getId()
 					+ "' />");
-			row.add(role.getName());
+			row.add("<a href='edit_role?id=" + role.getId() + "'>" + role.getName() + "</a>");
 			row.add(getStringPermissions(role));
 			data.add(row);
 		}
@@ -101,12 +101,12 @@ public class RoleModule {
 		StringBuffer stringBuffer = new StringBuffer();
 		
 		int iter = 0;
-		for(Permission permissioon : role.getPermissions()) {
+		for(Permission permission : role.getPermissions()) {
 			if (iter != 0) {
 				stringBuffer.append(", ");
 			}
 			
-			stringBuffer.append(permissioon.getName());
+			stringBuffer.append("<a href='edit_permission?id=" + permission.getId() + "'>" + permission.getName() + "</a>");
 			iter++;
 		}
 		

@@ -119,9 +119,8 @@ public class TagModule {
 		List<ArrayList<String>> data = new ArrayList<ArrayList<String>>();
 		for (Tag tag : tags) {
 			ArrayList<String> row = new ArrayList<String>();
-			row.add("<input type='checkbox' class='ids' value='" + tag.getId()
-					+ "' />");
-			row.add(tag.getName());
+			row.add("<input type='checkbox' class='ids' value='" + tag.getId() + "' />");
+			row.add("<a href='edit_tag?id=" + tag.getId() + "'>" + tag.getName() + "</a>");
 			data.add(row);
 		}
 

@@ -73,7 +73,7 @@ public class PostModule {
 			ArrayList<String> row = new ArrayList<String>();
 			row.add("<input type='checkbox' class='ids' value='" + post.getId()
 					+ "' />");
-			row.add(post.getTitle());
+			row.add("<a href='edit_post?id=" + post.getId() + "'>" + post.getTitle() + "</a>");
 			row.add(getDisplayDate(post.getTimestamp()));
 			row.add(getStringTags(post));
 			data.add(row);
@@ -99,7 +99,7 @@ public class PostModule {
 				stringBuffer.append(", ");
 			}
 			
-			stringBuffer.append(tag.getName());
+			stringBuffer.append("<a href='edit_tag?id=" + tag.getId() + "'>" + tag.getName() + "</a>");
 			iter++;
 		}
 		

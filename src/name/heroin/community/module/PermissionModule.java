@@ -66,9 +66,8 @@ public class PermissionModule {
 		List<ArrayList<String>> data = new ArrayList<ArrayList<String>>();
 		for (Permission permission : permissions) {
 			ArrayList<String> row = new ArrayList<String>();
-			row.add("<input type='checkbox' class='ids' value='"
-					+ permission.getId() + "' />");
-			row.add(permission.getName());
+			row.add("<input type='checkbox' class='ids' value='" + permission.getId() + "' />");
+			row.add("<a href='edit_permission?id=" + permission.getId() + "'>" + permission.getName() + "</a>");
 			data.add(row);
 		}
 

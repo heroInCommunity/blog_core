@@ -19,6 +19,7 @@ import name.heroin.community.model.User;
 import name.heroin.community.utils.SessionProvider;
 import name.heroin.community.utils.std.SessionProviderHibernate;
 import name.heroin.community.utils.std.Status;
+import name.heroin.community.utils.std.Utils;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -66,9 +67,9 @@ public class UserModule {
 			ArrayList<String> row = new ArrayList<String>();
 			row.add("<input type='checkbox' class='ids' value='" + user.getId()
 					+ "' />");
-			row.add(user.getName());
+			row.add("<a href='edit_user?id=" + user.getId() + "'>" + user.getName() + "</a>");
 			row.add(user.getEmail());
-			row.add(user.getRole().getName());
+			row.add("<a href='edit_role?id=" + user.getRole().getId() + "'>" + user.getRole().getName() + "</a>");
 			data.add(row);
 		}
 
