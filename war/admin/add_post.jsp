@@ -53,6 +53,11 @@
 									placeholder="Enter post title">
 							</div>
 							<div class="form-group">
+								<label for="postDescription">Description</label> <input
+									class="form-control" id="postDescription"
+									placeholder="Enter post description">
+							</div>
+							<div class="form-group">
 								<label for="postBody">Body</label>
 								<div id="postBody"></div>
 							</div>
@@ -126,7 +131,12 @@
 	        	});
 				$.ajax({
 					url: "<%=request.getAttribute(AttributeName.BASE_URL.value()) %>" + "api/posts/add_post",
-					data: {title: $('#postTitle').val(), body: $('#postBody').elrte('val'), tags: tagIds},
+					data: {
+						title: $('#postTitle').val(),
+						description: $('#postDescription').val(),
+						body: $('#postBody').elrte('val'),
+						tags: tagIds
+					},
 		            error: function() {
 		            },
 		            success: function() {

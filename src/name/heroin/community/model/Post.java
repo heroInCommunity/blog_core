@@ -30,8 +30,18 @@ public class Post {
     private int id;
 	
     private String title;
+    @Column(columnDefinition = "TEXT")
     private String body;
-    private Date timestamp;
+    private String description;
+    public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	private Date timestamp;
 
     public Post() {
         // This is used by JPA

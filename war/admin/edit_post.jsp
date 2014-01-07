@@ -55,6 +55,11 @@
 									value="<%=( (Post) request.getAttribute(AttributeName.POST.value()) ).getTitle()%>">
 							</div>
 							<div class="form-group">
+								<label for="postDescription">Description</label> <input
+									class="form-control" id="postDescription"
+									value="<%=( (Post) request.getAttribute(AttributeName.POST.value()) ).getDescription()%>">
+							</div>
+							<div class="form-group">
 								<label for="postBody">Body</label>
 								<div id="postBody"></div>
 							</div>
@@ -155,7 +160,8 @@
 					url: "<%=request.getAttribute(AttributeName.BASE_URL.value()) %>" + "api/posts/edit_post",
 					data: {
 						id: "<%=( (Post) request.getAttribute(AttributeName.POST.value()) ).getId()%>",
-						title: $('#postTitle').val(), 
+						title: $('#postTitle').val(),
+						description: $('#postDescription').val(),
 						body: $('#postBody').elrte('val'), 
 						tags: tagIds
 					},

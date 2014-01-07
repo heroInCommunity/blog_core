@@ -24,10 +24,12 @@ import name.heroin.community.model.Tag;
 import name.heroin.community.utils.SessionProvider;
 import name.heroin.community.utils.std.SessionProviderHibernate;
 import name.heroin.community.utils.std.Status;
+import name.heroin.community.utils.std.Utils;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.CriteriaSpecification;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
@@ -74,7 +76,7 @@ public class PostModule {
 			row.add("<input type='checkbox' class='ids' value='" + post.getId()
 					+ "' />");
 			row.add("<a href='edit_post?id=" + post.getId() + "'>" + post.getTitle() + "</a>");
-			row.add(getDisplayDate(post.getTimestamp()));
+			row.add(Utils.getDisplayDate(post.getTimestamp()));
 			row.add(getStringTags(post));
 			data.add(row);
 		}
@@ -82,12 +84,6 @@ public class PostModule {
 		result.put("aaData", data);
 
 		return result;
-	}
-	
-	private String getDisplayDate(Date date) {
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(date);
-		return calendar.get(Calendar.MONTH) + "/" + calendar.get(Calendar.DATE) + "/" + calendar.get(Calendar.YEAR);
 	}
 	
 	private String getStringTags(Post post) {
@@ -109,7 +105,8 @@ public class PostModule {
 	@POST
 	@Produces("application/json")
 	@Path("/add_post")
-	public Status addPost(@FormParam("title") String title, @FormParam("body") String body, @FormParam("tags[]") List<Integer> tagIds) {
+	public Status addPost(@FormParam("title") String title, @FormParam("description") String description, 
+			@FormParam("body") String body, @FormParam("tags[]") List<Integer> tagIds) {
 		Set<Tag> tags = new HashSet<Tag>();
 		for(Integer id : tagIds) {
 			Tag tag = new Tag();
@@ -119,6 +116,7 @@ public class PostModule {
 		
 		Post post = new Post();
 		post.setTitle(title);
+		post.setDescription(description);
 		post.setBody(body);
 		post.setTags(tags);
 		post.setTimestamp(new Date());
@@ -142,7 +140,7 @@ public class PostModule {
 	@POST
 	@Produces("application/json")
 	@Path("/edit_post")
-	public Status editPost(@FormParam("id") Integer postId, @FormParam("title") String title, 
+	public Status editPost(@FormParam("id") Integer postId, @FormParam("title") String title, @FormParam("description") String description, 
 			@FormParam("body") String body, @FormParam("tags[]") List<Integer> tagIds) {
 		Status status = new Status();
 		if(postId == null) {
@@ -162,6 +160,7 @@ public class PostModule {
 			post.setTags(tags);
 			
 			post.setTitle(title);
+			post.setDescription(description);
 			post.setBody(body);
 			post.setTimestamp(new Date());
 					
@@ -217,6 +216,51 @@ public class PostModule {
 		if (posts.isEmpty()) {
 			return null;
 		}
+		return posts.get(0);
+	}
+	
+	public List<SlimPost> getPostTitles(@DefaultValue(Parameters.Constants.S_SEARCH) @QueryParam("sSearch") String search) {
+		SessionProvider sessionProvider = new SessionProviderHibernate();
+		
+		Session session = sessionProvider.getSession();
+		session.beginTransaction();
+		
+		Criteria criteria = session.createCriteria(SlimPost.class);
+
+		if (search.length() >= Integer.parseInt(Parameters.Constants.MIN_LENGTH_TO_SEARCH)) {
+			criteria.add(Restrictions.like("title", search + "%"));
+		}
+		
+		criteria.setMaxResults(Integer.parseInt(Parameters.I_DISPLAY_LENGTH.value()));
+		criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+		List<SlimPost> posts = criteria.list();		
+		
+		session.getTransaction().commit();
+		session.close();
+		
+		return posts;
+	}
+	
+	public Post getLatestPost() {
+		SessionProvider sessionProvider = new SessionProviderHibernate();
+		
+		Session session = sessionProvider.getSession();
+		session.beginTransaction();
+		
+		Criteria criteria = session.createCriteria(Post.class);
+		
+		criteria.setMaxResults(0);
+		criteria.addOrder(Order.desc("timestamp"));
+		
+		List<Post> posts = criteria.list();		
+		
+		session.getTransaction().commit();
+		session.close();
+		
+		if (posts.isEmpty()) {
+			return null;
+		}
+		
 		return posts.get(0);
 	}
 }
