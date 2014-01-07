@@ -11,7 +11,9 @@ public enum AttributeName {
 	COMMENT("comment"),
 	ROLE("role"),
 	PERMISSION("permission"),
-	USER("user");
+	USER("user"),
+	LATEST_POST("latestPost"),
+	POST_TITLES("postTitles");
 	
 	private final String value;
 	AttributeName(String value) {

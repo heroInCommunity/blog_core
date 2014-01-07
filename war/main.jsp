@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<%@page import="name.heroin.community.utils.std.Utils"%>
+<%@page import="name.heroin.community.constants.AttributeName"%>
+<%@page import="name.heroin.community.model.SlimPost"%>
+<%@page import="name.heroin.community.model.Post"%>
+<%@page import="java.util.List"%>
 <html class="no-js">
 	<head>
 		<meta charset="utf-8">
@@ -30,12 +35,12 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="main.html">Joe's blog</a>
+					<a class="navbar-brand" href="main">Joe's blog</a>
 				</div>
 				<div class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
 						<li class="active">
-							<a href="main.html">Home</a>
+							<a href="main">Home</a>
 						</li>
 						<li>
 							<a href="projects.html">Projects</a>
@@ -59,33 +64,15 @@
 
 					<div class="sidebar-offcanvas well sidebar" id="sidebar" role="navigation">
 						<div class="list-group article-titles">
-							<a href="#" class="list-group-item article-date-name active">
-								<div class="article-date">2012-04-8:</div>&nbsp;Article Jquery Basics
-							</a>
+							<%
+							for(SlimPost post : (List<SlimPost>) request.getAttribute(AttributeName.POST_TITLES.value())) {
+							%>
 							<a href="#" class="list-group-item article-date-name">
-								<div class="article-date">2012-03-1:</div>&nbsp;Google scroogle people
+								<div class="article-date"><%=Utils.getDisplayDate(post.getTimestamp()) %>:</div>&nbsp;<%=post.getTitle()%>
 							</a>
-							<a href="#" class="list-group-item article-date-name">
-								<div class="article-date">2012-02-18:</div>&nbsp;Microsoft was scroogled by Google
-							</a>
-							<a href="#" class="list-group-item article-date-name">
-								<div class="article-date">2012-01-28:</div>&nbsp;Google scroogled Microsoft
-							</a>
-							<a href="#" class="list-group-item article-date-name">
-								<div class="article-date">2011-10-4:</div>&nbsp;Google scroogled Microsoft again creating this article with such a long title
-							</a>
-							<a href="#" class="list-group-item article-date-name">
-								<div class="article-date">2011-09-11:</div>&nbsp;Microsoft was scroogled by Google again
-							</a>
-							<a href="#" class="list-group-item article-date-name">
-								<div class="article-date">2011-09-2:</div>&nbsp;Microsoft is scroogled by Google time after time
-							</a>
-							<a href="#" class="list-group-item article-date-name">
-								<div class="article-date">2011-08-28:</div>&nbsp;Microsoft annoyed being scroogled by Google time after time
-							</a>
-							<a href="#" class="list-group-item article-date-name">
-								<div class="article-date">2011-07-6:</div>&nbsp;Microsoft annoyed being scroogled by Google time after time
-							</a>
+							<%
+							}
+							%>
 						</div>
 					</div><!--/span-->
 				</div>
@@ -97,9 +84,9 @@
 						</button>
 					</p>
 					<div class="jumbotron">
-						<h1 class="article-title">Article Title</h1>
+						<h1 class="article-title"><%=( (Post)request.getAttribute(AttributeName.LATEST_POST.value()) ).getTitle() %></h1>
 						<p>
-							Short description of the article with a title like it was mentioned above. Look on it do decide whether to read the article.
+							<%=( (Post)request.getAttribute(AttributeName.LATEST_POST.value()) ).getDescription() %>
 						</p>
 						<p class="fullscreen-mode" id="clicker_full">view in fullscreen mode</p>
 						<p class="fullscreen-mode" id="clicker_less" style="display: none;">view in standard mode</p>
@@ -111,115 +98,7 @@
 					</div>
 					<div class="row article-content" id="scrollable">
 						<div class="col-md-12">
-							<p>
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-							</p>
-							<p>
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-							</p>
-							<p>
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-							</p>
-							<p>
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-							</p>
-							<p>
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-							</p>
-							<p>
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-							</p>
-							<p>
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-							</p>
-							<p>
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-							</p>
-							<p>
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-							</p>
-							<p>
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-							</p>
-							<p>
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-							</p>
-							<p>
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-							</p>
-							<p>
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-							</p>
-							<p>
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-							</p>
-							<p>
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-							</p>
-							<p>
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-							</p>
-							<p>
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-							</p>
-							<p>
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-							</p>
-							<p>
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-							</p>
-							<p>
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-							</p>
-							<p>
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-							</p>
-							<p>
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-							</p>
-							<p>
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-							</p>
-							<p>
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-							</p>
-							<p>
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-							</p>
-							<p>
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-							</p>
-							<pre class="brush: js">
-								var str = "something"
-								// эквивалентные записи
-								var test = Boolean(str)
-								var test = !!str
-							</pre>
-							<p>
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-							</p>
-							<p>
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-							</p>
-							<p>
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-							</p>
-							<p>
-								Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-							</p>
+							<%=( (Post)request.getAttribute(AttributeName.LATEST_POST.value()) ).getBody() %>
 						</div><!--/span-->
 					</div><!--/row-->
 				</div><!--/span-->
@@ -249,38 +128,49 @@
 			SyntaxHighlighter.all()
 		</script>
 		<script src="js/main.js"></script>
-
-		<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
 		<script>
 			$( document ).ready(function() {
-	
+				$.ajaxSetup({
+					type: "POST",
+					dataType: "json",
+					mimeType: "application/json"
+				});
+				
 				//search words on main page
 				$('#search-word').selectize({
-				    delimiter: ',',
+		        	valueField: 'id',
+		            labelField: 'name',
+		            searchField: 'name',
+		            delimiter: ',',
 				    persist: false,
 				 	plugins: ['restore_on_backspace', 'remove_button'],
-				    create: function(input) {
-				        return {
-				            value: input,
-				            text: input
-				        };
+				 	preload: false,
+				    create: false,
+				    render: {
+				        option: function(item, escape) {
+				            return '<div>' +
+				                '<span class="title">' +
+				                    '<span class="by">' + escape(item.name) + '</span>' +
+				                '</span>' +
+				            '</div>';
+				        }
 				    },
-				     maxItems: 12
+			     	maxItems: 12,
+			     	load: function(query, callback) {
+			         	if (!query.length) callback();
+			         	$.ajax({
+		             		url: "<%=request.getAttribute(AttributeName.BASE_URL.value())%>" + "api/tags/search",
+				            data: {tagName: query},
+				            error: function() {
+				                callback();
+				            },
+				            success: function(res) {
+				                callback(res);
+				            }
+				         });
+				     }
 				});
 		});
-			( function(b, o, i, l, e, r) {
-					b.GoogleAnalyticsObject = l;
-					b[l] || (b[l] = function() {
-						(b[l].q = b[l].q || []).push(arguments)
-					});
-					b[l].l = +new Date;
-					e = o.createElement(i);
-					r = o.getElementsByTagName(i)[0];
-					e.src = '//www.google-analytics.com/analytics.js';
-					r.parentNode.insertBefore(e, r)
-				}(window, document, 'script', 'ga'));
-			ga('create', 'UA-XXXXX-X');
-			ga('send', 'pageview');
 		</script>
 	</body>
 </html>

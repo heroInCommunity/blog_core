@@ -13,6 +13,16 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>BlogCore</servlet-name>
 		<url-pattern>/blog_core</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>MainFrontend</servlet-name>
+		<servlet-class>name.heroin.community.MainFrontendServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MainFrontend</servlet-name>
+		<url-pattern>/main</url-pattern>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
 	
 	<servlet>
 		<servlet-name>AdminServlet</servlet-name>

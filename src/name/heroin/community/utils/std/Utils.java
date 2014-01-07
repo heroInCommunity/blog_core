@@ -1,5 +1,8 @@
 package name.heroin.community.utils.std;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import name.heroin.community.constants.MenuName;
@@ -14,6 +17,12 @@ public class Utils {
 		}
 		
 		return true;
+	}
+	
+	public static String getDisplayDate(Date date) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		return calendar.get(Calendar.MONTH) + "/" + calendar.get(Calendar.DATE) + "/" + calendar.get(Calendar.YEAR);
 	}
 	
 	public static String permissionToUri(String permission) {

@@ -23,6 +23,10 @@ public class MainControllerRequestListener implements ServletRequestListener {
     public void requestInitialized(ServletRequestEvent servletRequestEvent) {
     	HttpServletRequest servletRequest = (HttpServletRequest) servletRequestEvent.getServletRequest();
     	
+    	if(isServletUrl(servletRequest)) {
+    		servletRequest.setAttribute(AttributeName.BASE_URL.value(), Utils.getBaseUrl(servletRequest));
+    	}
+    	
     	if (servletRequest.getServletPath().contains("admin/")) {
     		String[] urlParts = servletRequest.getServletPath().split("/");
     		String methodName = "admin/" + urlParts[2];
@@ -39,10 +43,17 @@ public class MainControllerRequestListener implements ServletRequestListener {
     				MenuItem subLevelMenu = menuModule.getMenuByUrl(methodName);
         			servletRequest.setAttribute(AttributeName.SUB_LEVEL_MENU_ID.value(), subLevelMenu.getId());
     			}
-    			
-    			servletRequest.setAttribute(AttributeName.BASE_URL.value(), Utils.getBaseUrl(servletRequest));
     		}
     	}
+    }
+    
+    private Boolean isServletUrl(HttpServletRequest servletRequest) {
+    	if(!servletRequest.getServletPath().contains("js/") && !servletRequest.getServletPath().contains("css/") 
+    		&& !servletRequest.getServletPath().contains("images/")) {
+    		return true;
+    	}
+    	
+    	return false;
     }
     
     private String getClassName(String methodName) {

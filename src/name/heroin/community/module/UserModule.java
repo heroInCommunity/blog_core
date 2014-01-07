@@ -23,6 +23,7 @@ import name.heroin.community.utils.std.Utils;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
@@ -50,6 +51,7 @@ public class UserModule {
 		
 		criteria.setFirstResult(start);
 		criteria.setMaxResults(length);
+		criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
 		List<User> users = criteria.list();
 
 		Number usersCount = (Number) session.createCriteria(User.class)
@@ -164,6 +166,7 @@ public class UserModule {
 		);
 		
 		criteria.setMaxResults(10);
+		criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
 		List<User> users = criteria.list();		
 		
 		session.getTransaction().commit();
