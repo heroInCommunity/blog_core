@@ -21,31 +21,27 @@ public class MainControllerRequestListener implements ServletRequestListener {
     public void requestDestroyed(ServletRequestEvent servletRequestEvent) {}
  
     public void requestInitialized(ServletRequestEvent servletRequestEvent) {
-    	HttpServletRequest request = (HttpServletRequest) servletRequestEvent.getServletRequest();
+    	HttpServletRequest servletRequest = (HttpServletRequest) servletRequestEvent.getServletRequest();
     	
-    	if (isServletUrl(request)) {
-    		request.setAttribute(AttributeName.BASE_URL.value(), Utils.getBaseUrl(request));
+    	if (isServletUrl(servletRequest)) {
+    		servletRequest.setAttribute(AttributeName.BASE_URL.value(), Utils.getBaseUrl(servletRequest));
     	}
     	
-    	if (request.getServletPath().contains("admin/")) {
-    		String[] urlParts = request.getServletPath().split("/");
+    	if (servletRequest.getServletPath().contains("admin/")) {
+    		String[] urlParts = servletRequest.getServletPath().split("/");
     		String methodName = "admin/" + urlParts[2];
     		String className = getClassName(methodName);
     		
     		if (MenuName.contains(methodName) && MenuName.contains(className) ) {
     			Map<MenuItem, List<MenuItem>> menus = menuModule.getMenuItems();
-    			request.setAttribute(AttributeName.MENUS.value(), menus);
-    			
-    			if (methodName.contains("index")) {
-    				return;
-    			}
+    			servletRequest.setAttribute(AttributeName.MENUS.value(), menus);
     			
     			MenuItem topLevelMenu = menuModule.getMenuByUrl(className);
-    			request.setAttribute(AttributeName.TOP_LEVEL_MENU_ID.value(), topLevelMenu.getId());
+    			servletRequest.setAttribute(AttributeName.TOP_LEVEL_MENU_ID.value(), topLevelMenu.getId());
     			
     			if (!methodName.contains("edit")) {
     				MenuItem subLevelMenu = menuModule.getMenuByUrl(methodName);
-        			request.setAttribute(AttributeName.SUB_LEVEL_MENU_ID.value(), subLevelMenu.getId());
+        			servletRequest.setAttribute(AttributeName.SUB_LEVEL_MENU_ID.value(), subLevelMenu.getId());
     			}
     		}
     	}

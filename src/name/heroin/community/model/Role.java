@@ -1,6 +1,5 @@
 package name.heroin.community.model;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,9 +17,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table (name = "roles")
-public class Role implements Serializable {
-	private static final long serialVersionUID = -8322948063419676837L;
-
+public class Role {
 	public Role() {
 		
 	}

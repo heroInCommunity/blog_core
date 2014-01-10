@@ -4,9 +4,7 @@
 <%@ page import="name.heroin.community.model.User" %>
 <%@ page import="name.heroin.community.model.Comment" %>
 <%@ page import="name.heroin.community.constants.AttributeName" %>
-<jsp:include page="header.jsp" >
-	<jsp:param name="base_url" value="${request['AttributeName.BASE_URL.value()'] }" />
-</jsp:include>
+<jsp:include page="header.jsp" />
 <link rel="stylesheet" href="<%=request.getAttribute(AttributeName.BASE_URL.value()) %>css/jquery-ui-1.10.3.custom.min.css">
 		<div class="container">
 		<div class="row">
@@ -74,9 +72,7 @@
 				</div>
 			</div>
 		</div>
-		<jsp:include page="footer.jsp" >
-			<jsp:param name="base_url" value="${request['AttributeName.BASE_URL.value()'] }" />
-		</jsp:include>	
+		<jsp:include page="footer.jsp" />		
 		<script type="text/javascript" src="<%=request.getAttribute(AttributeName.BASE_URL.value()) %>js/jquery-ui-1.10.3.custom.min.js"></script>		
 		<script type="text/javascript">		
 		$( document ).ready(function() {

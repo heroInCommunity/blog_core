@@ -3,7 +3,7 @@ package name.heroin.community;
 import java.io.IOException;
 import javax.servlet.http.*;
 
-public class AdminServlet extends HttpServlet {
+public class BlogCoreServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -11,4 +11,3 @@ public class AdminServlet extends HttpServlet {
 		resp.getWriter().println("Hello, world");
 	}
 }
-

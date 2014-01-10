@@ -4,9 +4,7 @@
 <%@ page import="name.heroin.community.model.Role"%>
 <%@ page import="name.heroin.community.model.Permission"%>
 <%@ page import="name.heroin.community.constants.AttributeName"%>
-<jsp:include page="header.jsp" >
-	<jsp:param name="base_url" value="${request['AttributeName.BASE_URL.value()'] }" />
-</jsp:include>
+<jsp:include page="header.jsp" />
 <link rel="stylesheet"
 	href="<%=request.getAttribute(AttributeName.BASE_URL.value())%>css/selectize.css">
 <link rel="stylesheet"
@@ -76,9 +74,7 @@
 			</div>
 		</div>
 	</div>
-	<jsp:include page="footer.jsp" >
-		<jsp:param name="base_url" value="${request['AttributeName.BASE_URL.value()'] }" />
-	</jsp:include>
+	<jsp:include page="footer.jsp" />
 	<script
 		src="<%=request.getAttribute(AttributeName.BASE_URL.value())%>js/vendor/selectize.js"></script>
 	<script type="text/javascript">

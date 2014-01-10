@@ -6,12 +6,12 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 
 	<servlet>
-		<servlet-name>Login</servlet-name>
-		<servlet-class>name.heroin.community.LoginServlet</servlet-class>
+		<servlet-name>BlogCore</servlet-name>
+		<servlet-class>name.heroin.community.BlogCoreServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>Login</servlet-name>
-		<url-pattern>/login</url-pattern>
+		<servlet-name>BlogCore</servlet-name>
+		<url-pattern>/blog_core</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -48,7 +48,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>AdminServlet</servlet-name>
-		<url-pattern>/admin/index</url-pattern>
+		<url-pattern>/admin</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
@@ -144,15 +144,6 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<listener>
 		<listener-class>name.heroin.community.listeners.MainControllerRequestListener</listener-class>
 	</listener>
-	
-	<filter> 
-    	<filter-name>AdminFilter</filter-name>
-    	<filter-class>name.heroin.community.filters.AdminFilter</filter-class> 
-  	</filter> 
-  	<filter-mapping> 
-    	<filter-name>AdminFilter</filter-name>
-    	<url-pattern>/admin/*</url-pattern> 
-  	</filter-mapping> 
 	
 	
 	<welcome-file-list>

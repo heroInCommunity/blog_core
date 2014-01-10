@@ -1,4 +1,3 @@
-<%@ page import="name.heroin.community.constants.AttributeName" %>
 <!DOCTYPE html>
 <html class="no-js">
 	<head>
@@ -10,9 +9,9 @@
 
 		<!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
 
-		<link rel="stylesheet" href="<%=request.getAttribute(AttributeName.BASE_URL.value()) %>css/bootstrap.css">
-		<link rel="stylesheet" href="<%=request.getAttribute(AttributeName.BASE_URL.value()) %>css/main.css">
-		<script src="<%=request.getAttribute(AttributeName.BASE_URL.value()) %>js/vendor/modernizr-2.7.0.min.js"></script>
+		<link rel="stylesheet" href="../css/bootstrap.css">
+		<link rel="stylesheet" href="../css/main.css">
+		<script src="../js/vendor/modernizr-2.7.0.min.js"></script>
 	</head>
 	<body>
 		<!--[if lt IE 8]>
@@ -28,21 +27,21 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="<%=request.getAttribute(AttributeName.BASE_URL.value()) %>main.html">Joe's blog</a>
+					<a class="navbar-brand" href="../main.html">Joe's blog</a>
 				</div>
 				<div class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
 						<li>
-							<a href="<%=request.getAttribute(AttributeName.BASE_URL.value()) %>main.html">Home</a>
+							<a href="../main.html">Home</a>
 						</li>
 						<li>
-							<a href="<%=request.getAttribute(AttributeName.BASE_URL.value()) %>projects.html">Projects</a>
+							<a href="../projects.html">Projects</a>
 						</li>
 						<li>
-							<a href="<%=request.getAttribute(AttributeName.BASE_URL.value()) %>about.html">About</a>
+							<a href="../about.html">About</a>
 						</li>						
 						<li class="active">
-							<a href="<%=request.getAttribute(AttributeName.BASE_URL.value()) %>admin/index.html">Admin</a>
+							<a href="admin/index.html">Admin</a>
 						</li>
 					</ul>
 				</div><!--/.nav-collapse -->

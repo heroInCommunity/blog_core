@@ -29,10 +29,7 @@ public enum MenuName {
 	ADMIN_POSTS("admin/posts"),
 	ADMIN_ALL_POSTS("admin/all_posts"),
 	ADMIN_ADD_POST("admin/add_post"),
-	ADMIN_EDIT_POST("admin/edit_post"),
-	
-	ADMIN_INDEX("admin/index"),
-	ADMIN_LOGIN("admin/login");	
+	ADMIN_EDIT_POST("admin/edit_post");	
 
 	private final String value;
 	MenuName(String value) {
