@@ -4,7 +4,9 @@
 <%@ page import="name.heroin.community.model.Role" %>
 <%@ page import="name.heroin.community.model.Permission" %>
 <%@ page import="name.heroin.community.constants.AttributeName" %>
-<jsp:include page="header.jsp" />
+<jsp:include page="header.jsp" >
+	<jsp:param name="base_url" value="${request['AttributeName.BASE_URL.value()'] }" />
+</jsp:include>
 		<div class="container">
 		<div class="row">
 			<div class="col-md-3 well">
@@ -56,7 +58,9 @@
 				</div>
 			</div>
 		</div>
-		<jsp:include page="footer.jsp" />		
+		<jsp:include page="footer.jsp" >
+			<jsp:param name="base_url" value="${request['AttributeName.BASE_URL.value()'] }" />
+		</jsp:include>	
 		<script type="text/javascript">
 		$.ajaxSetup({
 			type: "POST",

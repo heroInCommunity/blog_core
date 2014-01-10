@@ -1,5 +1,7 @@
 package name.heroin.community.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -11,7 +13,9 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table (name = "users")
-public class User {
+public class User implements Serializable {
+	private static final long serialVersionUID = -4986509306577171386L;
+
 	public User() {
 		
 	}
@@ -29,6 +33,16 @@ public class User {
 	
 	private String name;
 	
+	private String password;
+	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public int getId() {
 		return id;
 	}

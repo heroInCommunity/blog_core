@@ -3,7 +3,9 @@
 <%@ page import="name.heroin.community.model.MenuItem" %>
 <%@ page import="name.heroin.community.model.User" %>
 <%@ page import="name.heroin.community.constants.AttributeName" %>
-<jsp:include page="header.jsp" />
+<jsp:include page="header.jsp" >
+	<jsp:param name="base_url" value="${request['AttributeName.BASE_URL.value()'] }" />
+</jsp:include>
 <link rel="stylesheet" href="<%=request.getAttribute(AttributeName.BASE_URL.value()) %>css/jquery-ui-1.8.13.custom.css">
 <link rel="stylesheet" href="<%=request.getAttribute(AttributeName.BASE_URL.value()) %>css/elrte.full.css">
 <link rel="stylesheet" href="<%=request.getAttribute(AttributeName.BASE_URL.value()) %>css/selectize.css">
@@ -70,7 +72,9 @@
 				</div>
 			</div>
 		</div>
-		<jsp:include page="footer.jsp" />		
+		<jsp:include page="footer.jsp" >
+			<jsp:param name="base_url" value="${request['AttributeName.BASE_URL.value()'] }" />
+		</jsp:include>	
 		<script type="text/javascript" src="<%=request.getAttribute(AttributeName.BASE_URL.value()) %>js/jquery-ui-1.8.13.custom.min.js"></script>
 		<script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
 		<script type="text/javascript" src="<%=request.getAttribute(AttributeName.BASE_URL.value()) %>js/elrte.full.js"></script>
