@@ -23,6 +23,7 @@ import name.heroin.community.utils.std.Status;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
@@ -134,6 +135,7 @@ public class CommentModule {
 
 		criteria.setFirstResult(start);
 		criteria.setMaxResults(length);
+		criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
 		List<Comment> comments = criteria.list();
 
 		Number commentsCount = (Number) session.createCriteria(Comment.class)

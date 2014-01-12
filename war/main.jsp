@@ -67,7 +67,7 @@
 							<%
 							for(SlimPost post : (List<SlimPost>) request.getAttribute(AttributeName.POST_TITLES.value())) {
 							%>
-							<a href="#" class="list-group-item article-date-name">
+							<a href="" id="post_id<%=post.getId()%>" class="list-group-item article-date-name">
 								<div class="article-date"><%=Utils.getDisplayDate(post.getTimestamp()) %>:</div>&nbsp;<%=post.getTitle()%>
 							</a>
 							<%
@@ -85,7 +85,7 @@
 					</p>
 					<div class="jumbotron">
 						<h1 class="article-title"><%=( (Post)request.getAttribute(AttributeName.LATEST_POST.value()) ).getTitle() %></h1>
-						<p>
+						<p id="article_description">
 							<%=( (Post)request.getAttribute(AttributeName.LATEST_POST.value()) ).getDescription() %>
 						</p>
 						<p class="fullscreen-mode" id="clicker_full">view in fullscreen mode</p>
@@ -196,6 +196,22 @@
 			            }
 			         });
 				});
+				$('a.article-date-name').click(function(event) {
+					event.preventDefault();
+					var postId = +$(this).attr("id").substr(7);
+					$.ajax({
+	             		url: "<%=request.getAttribute(AttributeName.BASE_URL.value())%>" + "api/posts/get_by_id",
+			            data: {
+			            	postId: postId
+		            	},
+			            success: function(res) {
+			            	$('h1.article-title').html(res.title);
+			            	$('p#article_description').html(res.description);
+			            	$('div.article-content > div').html(res.body);
+			            }
+		            });
+					return false;
+		         });
 		});
 		</script>
 	</body>

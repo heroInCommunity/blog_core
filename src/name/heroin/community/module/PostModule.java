@@ -199,7 +199,13 @@ public class PostModule {
 		return posts;
 	}
 	
-	public Post getById(Integer id) {
+	@POST
+	@Produces("application/json")
+	@Path("/get_by_id")
+	public Post getById(@FormParam("postId") Integer id) {
+		if (id == null) {
+			return null;
+		}
 		SessionProvider sessionProvider = new SessionProviderHibernate();
 		
 		Session session = sessionProvider.getSession();
