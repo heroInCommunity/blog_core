@@ -9,12 +9,12 @@
 
         <!-- Database connection settings -->
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://127.0.0.1:3306/blog</property>
+        <property name="connection.url">jdbc:mysql://192.168.204.124:3306/blog</property>
         <property name="connection.username">chg</property>
         <property name="connection.password">parol-mech</property>
 
         <!-- JDBC connection pool (use the built-in) -->
-        <property name="connection.pool_size">1</property>
+        <property name="connection.pool_size">0</property>
 
         <!-- SQL dialect -->
         <property name="dialect">
@@ -22,7 +22,7 @@
         </property>
         
         <property name="show_sql">true</property>
-        <property name="hbm2ddl.auto">update</property>
+        <property name="hbm2ddl.auto">validate</property>
         <mapping class="name.heroin.community.model.MenuItem" />
         <mapping class="name.heroin.community.model.Comment" />
         <mapping class="name.heroin.community.model.Post" />
