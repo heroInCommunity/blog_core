@@ -20,7 +20,9 @@ import name.heroin.community.constants.Parameters;
 import name.heroin.community.model.Post;
 import name.heroin.community.model.SlimPost;
 import name.heroin.community.model.Tag;
+import name.heroin.community.utils.MemcacheServiceUtil;
 import name.heroin.community.utils.SessionProvider;
+import name.heroin.community.utils.std.MemcacheUtilProvider;
 import name.heroin.community.utils.std.SessionProviderHibernate;
 import name.heroin.community.utils.std.Status;
 import name.heroin.community.utils.std.Utils;
@@ -228,28 +230,35 @@ public class PostModule {
 	@Produces("application/json")
 	@Path("/get_post_titles")
 	public List<SlimPost> getPostTitles(@DefaultValue(Parameters.Constants.S_SEARCH) @FormParam("search") String search,
-			@FormParam("tagIds[]") List<Integer> tagIds) {
-		SessionProvider sessionProvider = new SessionProviderHibernate();
+			@FormParam("tagIds[]") List<Integer> tagIds) {		
+		MemcacheServiceUtil memcache = MemcacheUtilProvider.getMemcacheUtil();
+		List<SlimPost> posts = (List<SlimPost>) memcache.getValue("post_titles");
 		
-		Session session = sessionProvider.getSession();
-		session.beginTransaction();
-		
-		Criteria criteria = session.createCriteria(SlimPost.class);
+		if (posts == null) {
+			SessionProvider sessionProvider = new SessionProviderHibernate();
+			
+			Session session = sessionProvider.getSession();
+			session.beginTransaction();
+			
+			Criteria criteria = session.createCriteria(SlimPost.class);
 
-		if (search.length() >= Integer.parseInt(Parameters.Constants.MIN_LENGTH_TO_SEARCH)) {
-			criteria.add(Restrictions.like("title", search + "%"));
+			if (search.length() >= Integer.parseInt(Parameters.Constants.MIN_LENGTH_TO_SEARCH)) {
+				criteria.add(Restrictions.like("title", search + "%"));
+			}
+			
+			if (tagIds != null && !tagIds.isEmpty()) {
+				criteria.createAlias("tags", "tag").add(Restrictions.in("tag.id", tagIds));
+			}
+			
+			criteria.setMaxResults(Integer.parseInt(Parameters.I_DISPLAY_LENGTH.value()));
+			criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+			posts = criteria.list();		
+			
+			session.getTransaction().commit();
+			session.close();
+			
+			memcache.putValue("post_titles", posts);
 		}
-		
-		if (tagIds != null && !tagIds.isEmpty()) {
-			criteria.createAlias("tags", "tag").add(Restrictions.in("tag.id", tagIds));
-		}
-		
-		criteria.setMaxResults(Integer.parseInt(Parameters.I_DISPLAY_LENGTH.value()));
-		criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
-		List<SlimPost> posts = criteria.list();		
-		
-		session.getTransaction().commit();
-		session.close();
 		
 		return posts;
 	}

@@ -1,5 +1,7 @@
 package name.heroin.community.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,7 +11,10 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table (name = "tags")
-public class Tag {
+public class Tag implements Serializable {
+	
+	private static final long serialVersionUID = -8029807901653745370L;
+
 	public Tag() {
 		
 	}

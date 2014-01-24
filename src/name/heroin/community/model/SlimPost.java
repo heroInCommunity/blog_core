@@ -1,5 +1,6 @@
 package name.heroin.community.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,8 +27,10 @@ import org.hibernate.annotations.GenericGenerator;
 	query = "from SlimPost p where p.title like :search"
 	)
 })
-public class SlimPost {
+public class SlimPost implements Serializable {
 	
+	private static final long serialVersionUID = -7376327975592979368L;
+
 	@Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
