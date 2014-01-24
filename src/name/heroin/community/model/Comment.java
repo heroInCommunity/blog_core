@@ -36,7 +36,7 @@ public class Comment {
 	@Column (name = "comment_text")
 	private String commentText;
 	
-	@Column (name = "is_visible")
+	@Column (name = "is_visible", columnDefinition = "BIT", length = 1)
 	private Boolean isVisible;
 	
 	@ManyToOne (cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
