@@ -127,6 +127,7 @@
 		<script>
 			SyntaxHighlighter.all()
 		</script>
+		<script src="js/progressbar.js"></script>
 		<script src="js/main.js"></script>
 		<script>
 			function getConvertTimestamp(timestamp) {

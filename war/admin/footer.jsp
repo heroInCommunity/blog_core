@@ -13,6 +13,7 @@
 		</script>
 		<script src="<%=request.getAttribute(AttributeName.BASE_URL.value()) %>js/plugins.js"></script>
 		<script src="<%=request.getAttribute(AttributeName.BASE_URL.value()) %>js/bootstrap.min.js"></script>
+		<script src="<%=request.getAttribute(AttributeName.BASE_URL.value()) %>js/progressbar.js"></script>
 		<script src="<%=request.getAttribute(AttributeName.BASE_URL.value()) %>js/main.js"></script>
 	</body>
 </html>
