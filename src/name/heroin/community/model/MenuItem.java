@@ -1,5 +1,7 @@
 package name.heroin.community.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,8 +12,10 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table (name = "menu_items")
-public class MenuItem {
+public class MenuItem implements Serializable {
 	
+	private static final long serialVersionUID = -1909681302192447508L;
+
 	public MenuItem() {
         // This is used by JPA
     }
@@ -77,6 +81,10 @@ public class MenuItem {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+	
+	public int hashCode() {
+		return id;
 	}
 
 }
